@@ -14,6 +14,8 @@ namespace pe
             std::shared_ptr<OptionalHeader> optional_header_;
         public:
 
+        NtHeaders(std::vector<char> file_header_data, std::vector<char> optional_header_data);
+
         std::shared_ptr<FileHeader> GetFileHeader() const;
         void SetFileHeader(const std::shared_ptr<FileHeader> file_header);
 
