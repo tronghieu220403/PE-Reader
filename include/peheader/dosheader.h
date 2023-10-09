@@ -10,7 +10,7 @@ namespace pe
         private:
 
         public:
-
+            DosHeader() = default;
     }
 
 }

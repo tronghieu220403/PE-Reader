@@ -5,11 +5,12 @@
 
 namespace pe
 {
-    class SectionHeaders
+    class SectionHeader
     {
         private:
 
         public:
+            SectionHeader() = default;
     }
 }
 

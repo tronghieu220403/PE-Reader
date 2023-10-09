@@ -1,10 +1,13 @@
 #ifndef PEREADER_ULTI_EVERYTHING_H_
 #define PEREADER_ULTI_EVERYTHING_H_
 
+#include <Windows.h>
+
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
+#include <memory>
 
 namespace pe
 {
