@@ -11,7 +11,7 @@ namespace pe
 
         public:
             FileHeader() = default;
-    }
+    };
 
 }
 

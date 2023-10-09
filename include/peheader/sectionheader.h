@@ -7,11 +7,11 @@ namespace pe
 {
     class SectionHeader
     {
-        private:
+    private:
 
-        public:
-            SectionHeader() = default;
-    }
+    public:
+        SectionHeader() = default;
+    };
 }
 
 #endif

@@ -2,7 +2,7 @@
 
 namespace pe
 {
-    OptionalHeader::OptionalHeader(std::vector<char> pe_data, int begin_offset):
+    OptionalHeader::OptionalHeader(const char* pe_data, int begin_offset):
         data_directory_vector_(std::make_shared<std::vector<DataDiretory>>())
     {
         int offset = begin_offset - 4;

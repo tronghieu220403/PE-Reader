@@ -7,31 +7,28 @@ namespace pe
 {
     class DataDiretory
     {
-        private:
-            std::string name_;
-            IMAGE_DATA_DIRECTORY data_;
+    private:
+        std::string name_;
+        IMAGE_DATA_DIRECTORY data_;
 
-        public:
-            DataDiretory() = default;
-            DataDiretory(const std::string& name, const IMAGE_DATA_DIRECTORY& data);
+    public:
+        DataDiretory() = default;
+        DataDiretory(const std::string& name, const IMAGE_DATA_DIRECTORY& data);
 
-            DataDiretory(const std::string& name, const DWORD virtual_address, const DWORD size);
+        DataDiretory(const std::string& name, const DWORD virtual_address, const DWORD size);
 
-            std::string GetName() const;
-            void SetName(const std::string& name);
+        std::string GetName() const;
+        void SetName(const std::string& name);
 
-            IMAGE_DATA_DIRECTORY GetData() const;
-            void SetData(const IMAGE_DATA_DIRECTORY& data);
+        IMAGE_DATA_DIRECTORY GetData() const;
+        void SetData(const IMAGE_DATA_DIRECTORY& data);
 
-            DWORD GetDataSize() const;
-            void SetDataSize(const DWORD size);
+        DWORD GetDataSize() const;
+        void SetDataSize(const DWORD size);
 
-            DWORD GetDataVirtualAddress() const;
-            void SetDataVirtualAddress(const DWORD virtual_address);
-
-
-    }
-
+        DWORD GetDataVirtualAddress() const;
+        void SetDataVirtualAddress(const DWORD virtual_address);
+    };
 }
 
 #endif

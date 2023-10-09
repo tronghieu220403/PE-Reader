@@ -2,7 +2,7 @@
 
 namespace pe
 {
-    CoffFileHeader::CoffFileHeader(std::vector<char> pe_data)
+    CoffFileHeader::CoffFileHeader(const char*, int begin_offset)
     {
         
     }
