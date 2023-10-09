@@ -7,10 +7,19 @@ namespace pe
 {
     class DosHeader
     {
-        private:
+    private:
+        IMAGE_DOS_HEADER dos_header_;
+    public:
+        DosHeader() = default;
+        DosHeader(const char* pe_data);
 
-        public:
-            DosHeader() = default;
+        IMAGE_DOS_HEADER GetImageDosHeader() const;
+        void SetImageDosHeader(const IMAGE_DOS_HEADER& dos_header);
+
+        WORD GetMagicNumber() const;
+        DWORD GetLfanew() const;
+
+        bool IsValidExe() const;
     };
 
 }
