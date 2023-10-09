@@ -9,8 +9,13 @@ namespace pe
 
     void NtHeader::SetNtHeaderData(const char *nt_data)
     {
-        signature_ = MemoryToUint32(nt_data);
-        SetCoffFileHeader(std::make_shared<CoffFileHeader>(nt_data+4));
+        signature_ = {"Signature", MemoryToUint32(nt_data), 4};
+        if (signature_.value !=0x4550)
+        {
+            return;
+        }
+        SetCoffFileHeader(std::make_shared<CoffFileHeader>(nt_data + 4));
+        SetOptionalHeader(std::make_shared<OptionalHeader>(nt_data + 24));
     }
 
     std::shared_ptr<CoffFileHeader> NtHeader::GetCoffFileHeader() const

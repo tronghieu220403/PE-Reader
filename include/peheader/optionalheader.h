@@ -39,6 +39,8 @@ namespace pe
 
     protected:
 
+        /*
+
         // For Standard fields
 
         std::vector<Field> GetStandardFieldVector() const;
@@ -49,6 +51,8 @@ namespace pe
         std::vector<Field> GetWindowsSpecificFieldVector() const;
         void SetStandardFieldVector(const std::vector<Field>& windows_specific_field_vector);
 
+        */
+        
         // For Data directories
 
         std::shared_ptr<std::vector<DataDiretory>> GetDataDirectoryVector() const;

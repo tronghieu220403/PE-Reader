@@ -10,7 +10,7 @@ namespace pe
     class NtHeader
     {
     private:
-        DWORD signature_;
+        Field signature_;
         std::shared_ptr<CoffFileHeader> file_header_;
         std::shared_ptr<OptionalHeader> optional_header_;
     public:

@@ -8,10 +8,14 @@ namespace pe
     class CoffFileHeader
     {
     private:
-        IMAGE_FILE_HEADER file_header_;
+        std::vector<Field> file_header_vector_;
     public:
         CoffFileHeader() = default;
         explicit CoffFileHeader(const char* buffer);
+
+        void SetUpCoffFileHeaderVector(const char* file_header_data);
+        Field GetFieldByName(const std::string& name);
+
     };
 
 }

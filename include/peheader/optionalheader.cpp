@@ -5,7 +5,18 @@ namespace pe
     OptionalHeader::OptionalHeader(const char* optional_data):
         data_directory_vector_(std::make_shared<std::vector<DataDiretory>>())
     {
-        
+        SetUpStandardFieldVector(optional_data);
+
+        if (standard_field_vector_[0].value == 0x10b)
+        {
+            SetUpWindowsSpecificFieldVector(optional_data + 28);
+            SetUpDataDiretoryVector(optional_data + 96);
+        }
+        else if (standard_field_vector_[0].value == 0x20b)
+        {
+            SetUpWindowsSpecificFieldVector(optional_data + 24);
+            SetUpDataDiretoryVector(optional_data + 112);
+        }
     }
 
     void OptionalHeader::SetUpStandardFieldVector(const char *standard_fields_data_)
