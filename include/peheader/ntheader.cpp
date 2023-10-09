@@ -1,18 +1,24 @@
-#include "cofffileheader.h"
+#include "ntheader.h"
 
 namespace pe
 {
-    NtHeader::NtHeader(const char*, int begin_offset)
+    NtHeader::NtHeader(const char* nt_data)
     {
-        
+        SetNtHeaderData(nt_data);
     }
 
-    std::shared_ptr<CoffFileHeader> NtHeader::GetFileHeader() const
+    void NtHeader::SetNtHeaderData(const char *nt_data)
+    {
+        signature_ = MemoryToUint32(nt_data);
+        SetCoffFileHeader(std::make_shared<CoffFileHeader>(nt_data+4));
+    }
+
+    std::shared_ptr<CoffFileHeader> NtHeader::GetCoffFileHeader() const
     {
         return file_header_;
     }
 
-    void NtHeader::SetFileHeader(const std::shared_ptr<CoffFileHeader> file_header)
+    void NtHeader::SetCoffFileHeader(const std::shared_ptr<CoffFileHeader> file_header)
     {
         file_header_ = file_header;
     }

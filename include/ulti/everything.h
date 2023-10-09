@@ -11,6 +11,14 @@
 
 namespace pe
 {
+
+    typedef struct Field
+    {
+        std::string name;
+        unsigned long long value;
+        WORD size;
+    };
+
     inline unsigned long long MemoryToUint64(const char *data)
     {
         unsigned long long res = 0;
@@ -36,6 +44,13 @@ namespace pe
     {
         int res = 0;
         memcpy(&res, data, 4);
+        return res;
+    }
+
+    inline WORD MemoryToUint16(const char *data)
+    {
+        int res = 0;
+        memcpy(&res, data, 2);
         return res;
     }
 
