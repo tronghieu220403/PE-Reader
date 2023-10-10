@@ -16,6 +16,9 @@ namespace pe
         
         void SetUpSectionTable(const char *section_headers_data);
 
+        SectionHeader FindSectionByVirtualAddress(unsigned long long addr);
+        SectionHeader FindSectionByRawAddress(unsigned long long addr);
+
     };
 }
 
