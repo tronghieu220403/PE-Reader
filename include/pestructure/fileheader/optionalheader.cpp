@@ -2,26 +2,25 @@
 
 namespace pe
 {
-    OptionalHeader::OptionalHeader(const char* optional_data):
-        data_directory_vector_(std::make_shared<std::vector<DataDiretory>>())
+    OptionalHeader::OptionalHeader(const char* optional_data)
     {
         standard_field_vector_.clear();
         windows_specific_field_vector_.clear();
-        SetUpStandardFieldVector(optional_data);
+        SetStandardFieldVector(optional_data);
 
         if (standard_field_vector_[0].value == 0x10b)
         {
-            SetUpWindowsSpecificFieldVector(optional_data + 28);
-            SetUpDataDiretoryVector(optional_data + 96);
+            SetWindowsSpecificFieldVector(optional_data + 28);
+            SetDataDiretoryTable(optional_data + 96);
         }
         else if (standard_field_vector_[0].value == 0x20b)
         {
-            SetUpWindowsSpecificFieldVector(optional_data + 24);
-            SetUpDataDiretoryVector(optional_data + 112);
+            SetWindowsSpecificFieldVector(optional_data + 24);
+            SetDataDiretoryTable(optional_data + 112);
         }
     }
 
-    void OptionalHeader::SetUpStandardFieldVector(const char *standard_fields_data_)
+    void OptionalHeader::SetStandardFieldVector(const char *standard_fields_data_)
     {
         int offset = 0;
         standard_field_vector_.clear();
@@ -105,7 +104,7 @@ namespace pe
         return Field();
     }
 
-    void OptionalHeader::SetUpWindowsSpecificFieldVector(const char *windows_specific_fields_data_)
+    void OptionalHeader::SetWindowsSpecificFieldVector(const char *windows_specific_fields_data_)
     {
         windows_specific_field_vector_.clear();
         WORD data_size = standard_field_vector_[0].value == 0x10b ? 4 : 8;
@@ -271,138 +270,23 @@ namespace pe
         return Field();
     }
 
-    void OptionalHeader::SetUpDataDiretoryVector(const char* data_directories_data)
+    void OptionalHeader::SetDataDiretoryTable(const char* data_directories_data)
     {
-        int offset = -4;
-        data_directory_vector_->clear();
-
-        data_directory_vector_->push_back(DataDiretory(
-            "Export Table",
-            MemoryToUint32(&(data_directories_data[offset += 4])), 
-            MemoryToUint32(&(data_directories_data[offset += 4])))
-        );
-
-        data_directory_vector_->push_back(DataDiretory(
-            "Import Table",
-            MemoryToUint32(&(data_directories_data[offset += 4])), 
-            MemoryToUint32(&(data_directories_data[offset += 4])))
-        );
-
-        data_directory_vector_->push_back(DataDiretory(
-            "Resource Table",
-            MemoryToUint32(&(data_directories_data[offset += 4])), 
-            MemoryToUint32(&(data_directories_data[offset += 4])))
-        );
-
-        data_directory_vector_->push_back(DataDiretory(
-            "Exception Table",
-            MemoryToUint32(&(data_directories_data[offset += 4])), 
-            MemoryToUint32(&(data_directories_data[offset += 4])))
-        );
-
-        data_directory_vector_->push_back(DataDiretory(
-            "Certificate Table",
-            MemoryToUint32(&(data_directories_data[offset += 4])), 
-            MemoryToUint32(&(data_directories_data[offset += 4])))
-        );
-
-        data_directory_vector_->push_back(DataDiretory(
-            "Base Relocation Table",
-            MemoryToUint32(&(data_directories_data[offset += 4])), 
-            MemoryToUint32(&(data_directories_data[offset += 4])))
-        );
-
-        data_directory_vector_->push_back(DataDiretory(
-            "Debug",
-            MemoryToUint32(&(data_directories_data[offset += 4])), 
-            MemoryToUint32(&(data_directories_data[offset += 4])))
-        );
-
-        data_directory_vector_->push_back(DataDiretory(
-            "Architecture",
-            MemoryToUint32(&(data_directories_data[offset += 4])), 
-            MemoryToUint32(&(data_directories_data[offset += 4])))
-        );
-
-        data_directory_vector_->push_back(DataDiretory(
-            "Global Ptr",
-            MemoryToUint32(&(data_directories_data[offset += 4])), 
-            MemoryToUint32(&(data_directories_data[offset += 4])))
-        );
-
-        data_directory_vector_->push_back(DataDiretory(
-            "TLS Table",
-            MemoryToUint32(&(data_directories_data[offset += 4])), 
-            MemoryToUint32(&(data_directories_data[offset += 4])))
-        );
-
-        data_directory_vector_->push_back(DataDiretory(
-            "Load Config Table",
-            MemoryToUint32(&(data_directories_data[offset += 4])), 
-            MemoryToUint32(&(data_directories_data[offset += 4])))
-        );
-
-        data_directory_vector_->push_back(DataDiretory(
-            "Bound Import Table",
-            MemoryToUint32(&(data_directories_data[offset += 4])), 
-            MemoryToUint32(&(data_directories_data[offset += 4])))
-        );
-
-        data_directory_vector_->push_back(DataDiretory(
-            "Import Address Table",
-            MemoryToUint32(&(data_directories_data[offset += 4])), 
-            MemoryToUint32(&(data_directories_data[offset += 4])))
-        );
-
-        data_directory_vector_->push_back(DataDiretory(
-            "Delay-Load Import Tables",
-            MemoryToUint32(&(data_directories_data[offset += 4])), 
-            MemoryToUint32(&(data_directories_data[offset += 4])))
-        );
-
-        data_directory_vector_->push_back(DataDiretory(
-            "CLR Runtime Header",
-            MemoryToUint32(&(data_directories_data[offset += 4])), 
-            MemoryToUint32(&(data_directories_data[offset += 4])))
-        );
-
-        data_directory_vector_->push_back(DataDiretory(
-            "Reserved",
-            MemoryToUint32(&(data_directories_data[offset += 4])), 
-            MemoryToUint32(&(data_directories_data[offset += 4])))
-        );
+        data_dir_table_.SetDataDiretoryTable(data_directories_data);
     }
 
-    std::shared_ptr<std::vector<DataDiretory>> OptionalHeader::GetDataDirectoryVector() const
+    DataDiretoryTable OptionalHeader::GetDataDirectoryTable() const
     {
-        return data_directory_vector_;
+        return data_dir_table_;
     }
 
-    void OptionalHeader::SetDataDirectoryVector(const std::shared_ptr<std::vector<DataDiretory>>& data_directory_vector)
+    void OptionalHeader::SetDataDirectoryTable(const DataDiretoryTable& data_dir_table)
     {
-        data_directory_vector_ = data_directory_vector;
-    }
-
-    void OptionalHeader::AddElementToDataDirectoryVector(const std::string &name, const IMAGE_DATA_DIRECTORY &image_data_directory)
-    {
-        data_directory_vector_->push_back(DataDiretory(name, image_data_directory));
-    }
-
-    void OptionalHeader::AddElementToDataDirectoryVector(const DataDiretory &data)
-    {
-        data_directory_vector_->push_back(data);
+        data_dir_table_ = data_dir_table;
     }
 
     DataDiretory OptionalHeader::GetDataDirectoryByName(const std::string &name)
     {
-        std::vector<DataDiretory>& v = *data_directory_vector_.get();
-        for (int i = 0; i < v.size(); i++)
-        {
-            if (v[i].GetName() == name)
-            {
-                return v[i];
-            }
-        }
-        return DataDiretory();
+        return data_dir_table_.GetDataDirectoryByName(name);
     }
 }

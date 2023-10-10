@@ -19,6 +19,14 @@ namespace pe
         WORD size;
     };
 
+    typedef struct FieldStr
+    {
+        std::string name;
+        std::string value;
+        WORD size;
+    };
+
+
     inline unsigned long long MemoryToUint64(const char *data)
     {
         unsigned long long res = 0;

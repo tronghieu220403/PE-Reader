@@ -10,7 +10,7 @@ namespace pe
     void NtHeader::SetNtHeaderData(const char *nt_data)
     {
         signature_ = {"Signature", MemoryToUint32(nt_data), 4};
-        if (signature_.value !=0x4550)
+        if (signature_.value != 0x4550)
         {
             return;
         }

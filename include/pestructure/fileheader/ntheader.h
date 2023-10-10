@@ -1,9 +1,9 @@
-#ifndef PEREADER_DISPLAY_NTHEADER_H_
-#define PEREADER_DISPLAY_NTHEADER_H_
+#ifndef PEREADER_PEHEADER_NTHEADER_H_
+#define PEREADER_PEHEADER_NTHEADER_H_
 
 #include "ulti/everything.h"
-#include "peheader/cofffileheader.h"
-#include "peheader/optionalheader.h"
+#include "pestructure/fileheader/cofffileheader.h"
+#include "pestructure/fileheader/optionalheader.h"
 
 namespace pe
 {
