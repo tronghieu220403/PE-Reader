@@ -81,8 +81,8 @@ namespace pe
             4}
         );
         offset += 4;
-
     }
+    
     Field SectionHeader::GetFieldByName(const std::string &name)
     {
         for (auto& ele: section_header_)
