@@ -5,6 +5,8 @@ namespace pe
     OptionalHeader::OptionalHeader(const char* optional_data):
         data_directory_vector_(std::make_shared<std::vector<DataDiretory>>())
     {
+        standard_field_vector_.clear();
+        windows_specific_field_vector_.clear();
         SetUpStandardFieldVector(optional_data);
 
         if (standard_field_vector_[0].value == 0x10b)
@@ -22,6 +24,7 @@ namespace pe
     void OptionalHeader::SetUpStandardFieldVector(const char *standard_fields_data_)
     {
         int offset = 0;
+        standard_field_vector_.clear();
 
         standard_field_vector_.push_back(
             Field{"Magic", 
@@ -104,6 +107,7 @@ namespace pe
 
     void OptionalHeader::SetUpWindowsSpecificFieldVector(const char *windows_specific_fields_data_)
     {
+        windows_specific_field_vector_.clear();
         WORD data_size = standard_field_vector_[0].value == 0x10b ? 4 : 8;
         int offset = 0;
         
@@ -270,6 +274,8 @@ namespace pe
     void OptionalHeader::SetUpDataDiretoryVector(const char* data_directories_data)
     {
         int offset = -4;
+        data_directory_vector_->clear();
+
         data_directory_vector_->push_back(DataDiretory(
             "Export Table",
             MemoryToUint32(&(data_directories_data[offset += 4])), 

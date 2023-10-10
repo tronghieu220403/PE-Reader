@@ -10,7 +10,8 @@ namespace pe
     void CoffFileHeader::SetUpCoffFileHeaderVector(const char *file_header_data)
     {
         int offset = 0;
-
+        file_header_vector_.clear();
+        
         file_header_vector_.push_back(
             Field{"Machine", 
             MemoryToUint16(file_header_data + offset), 
