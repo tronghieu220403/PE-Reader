@@ -59,7 +59,6 @@ namespace pe
                     4
                 });
                 entry_ = HintNameTable(pe_data, section_table_.ConvertRvaToRawAddress(rva));
-
             }
         }
         else

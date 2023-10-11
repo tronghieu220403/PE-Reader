@@ -15,7 +15,7 @@ namespace pe
         HintNameTable() = default;
         explicit HintNameTable(const char* pe_data, int offset);
 
-        void SetImportLookupEntry(const char* pe_data, int offset);
+        void SetHintNameTable(const char* pe_data, int offset);
 
         
     };

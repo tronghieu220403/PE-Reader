@@ -41,7 +41,6 @@ namespace pe
             ilt_rva, 
             4}
         );
-
         import_lookup_table_ = ImportLookupTable(pe_data, section_table_.ConvertRvaToRawAddress(ilt_rva), section_table_, version_);
 
         field_vector_.push_back(

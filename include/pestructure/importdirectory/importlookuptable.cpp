@@ -39,11 +39,13 @@ namespace pe
             return;
         }
 
+        int data_size = version_ == 0x10B ? 4 : 8;
+
         import_lookup_entry_.clear();
         while(true)
         {
             bool end_of_table = true;
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < data_size; i++)
             {
                 if (pe_data[offset + i] != 0)
                 {
@@ -56,7 +58,7 @@ namespace pe
                 break;
             }
             import_lookup_entry_.push_back(ImportLookupEntry(pe_data, offset, section_table_, version_));
-            offset += 8;
+            offset += data_size;
         }
     }
 
