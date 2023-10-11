@@ -24,8 +24,6 @@ namespace pe
 
         void SetImportDirectoryTableData(const char* pe_data, int offset);
 
-        ImportDirectoryEntry GetImportDirectoryEntryByDllName(const std::string& name) const;
-
     };
 }
 

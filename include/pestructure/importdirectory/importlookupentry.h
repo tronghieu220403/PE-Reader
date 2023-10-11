@@ -23,7 +23,7 @@ namespace pe
         void SetVersion(WORD version);
         void SetSectionTable(SectionTable section_table);
 
-        void SetImportLookupTableData(const char* pe_data, int offset);
+        void SetImportLookupEntryData(const char* pe_data, int offset);
 
         bool IsOrdinalFlag() const;
         bool IsNameFlag() const;

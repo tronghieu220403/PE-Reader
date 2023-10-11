@@ -62,8 +62,4 @@ namespace pe
         }
     }
     
-    ImportDirectoryEntry ImportDirectoryTable::GetImportDirectoryEntryByDllName(const std::string &name) const
-    {
-        return ImportDirectoryEntry();
-    }
 }
