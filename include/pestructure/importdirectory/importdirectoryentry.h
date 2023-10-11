@@ -2,17 +2,23 @@
 #define PEREADER_PEHEADER_IMPORTDIRECTORY_IMPORTDIRECTORYENTRY_H_
 
 #include "ulti/everything.h"
-
+#include "pestructure/importdirectory/importlookuptable.h"
 namespace pe
 {
     class ImportDirectoryEntry
     {
     private:
         std::vector<Field> field_vector_;
+        ImportLookupTable import_lookup_table_;
+        SectionTable section_table_;
+        WORD version_;
     public:
 
         ImportDirectoryEntry() = default;
-        explicit ImportDirectoryEntry(const char* pe_data, int offset);
+        explicit ImportDirectoryEntry(const char* pe_data, int offset, SectionTable& section_table, WORD version);
+
+        void SetSectionTable(SectionTable& section_table);
+        void SetVersion(WORD version);
 
         void SetImportDirectoryEntry(const char* pe_data, int offset);
 

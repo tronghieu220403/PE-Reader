@@ -2,13 +2,35 @@
 
 namespace pe
 {
-    ImportDirectoryEntry::ImportDirectoryEntry(const char *pe_data, int offset)
+    ImportDirectoryEntry::ImportDirectoryEntry(const char *pe_data, int offset, SectionTable& section_table, WORD version)
     {
+        if (version != 0x20B && version != 0x10B)
+        {
+            return;
+        }
+        version_ = version;
+        section_table_ = section_table;
+
         SetImportDirectoryEntry(pe_data, offset);
+    }
+
+    void ImportDirectoryEntry::SetSectionTable(SectionTable &section_table)
+    {
+        section_table_ = section_table;
+    }
+
+    void ImportDirectoryEntry::SetVersion(WORD version)
+    {
+        version_ = version;
     }
 
     void ImportDirectoryEntry::SetImportDirectoryEntry(const char *pe_data, int offset)
     {
+        if (version_ != 0x20B && version_ != 0x10B)
+        {
+            return;
+        }
+
         field_vector_.clear();
         offset -= 4;
 

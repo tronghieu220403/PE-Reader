@@ -21,8 +21,13 @@ namespace pe
         }
         int raw_offset = rva - section_header.GetFieldByName("VirtualAddress").value + section_header.GetFieldByName("PointerToRawData").value;
 
-        SetImportDirectoryTableData(pe_data, raw_offset, data_dir_table);
+        SetImportDirectoryTableData(pe_data, raw_offset);
 
+    }
+
+    void ImportDirectoryTable::SetSectionTable(const SectionTable &section_table)
+    {
+        section_table_ = section_table;
     }
 
     void ImportDirectoryTable::SetVersion(WORD version)
@@ -30,31 +35,31 @@ namespace pe
         version_ = version;
     }
 
-    void ImportDirectoryTable::SetImportDirectoryTableData(const char *pe_data, int offset, DataDiretoryTable& data_dir_table)
+    void ImportDirectoryTable::SetImportDirectoryTableData(const char *pe_data, int offset)
     {
-        /*
         if (version_ != 0x20B && version_ != 0x10B)
         {
             return;
         }
         entry_.clear();
-        if (version_ == 0x10B)
+        while(true)
         {
-            for (int i = 0; MemoryToUint32(pe_data + offset + i) != 0 ; i+= 4)
+            bool end_of_table = true;
+            for (int i = 0; i < 20; i++)
             {
-                entry_.push_back(ImportDirectoryEntry(
-
-                ))
+                if (pe_data[offset + i] != 0)
+                {
+                    end_of_table = false;
+                    break;
+                }
             }
-        }
-        else if (version_ == 0x20B)
-        {
-            for (int i = 0; MemoryToUint64(pe_data + offset + i) != 0 ; i+= 8)
+            if (end_of_table == true)
             {
-                
+                break;
             }
+            entry_.push_back(ImportDirectoryEntry(pe_data, offset, section_table_, version_));
+            offset += 20;
         }
-        */
     }
     
     ImportDirectoryEntry ImportDirectoryTable::GetImportDirectoryEntryByDllName(const std::string &name) const

@@ -38,75 +38,26 @@ namespace pe
         {
             return;
         }
-        field_vector_.clear();
-        if (version_ == 0x10B)
-        {
-            if ((MemoryToUint32(pe_data + offset) & 0x80000000) == 1)
-            {
-                // Import by ordinal
-                field_vector_.push_back(Field{
-                    "Ordinal Number",
-                    MemoryToUint32(pe_data + offset) & 0x0000ffff,
-                    2
-                });
-            }
-            else
-            {
-                DWORD rva = MemoryToUint32(pe_data + offset) & 0xffffffff;
-                field_vector_.push_back(Field{
-                    "Hint/Name Table RVA",
-                    rva,
-                    4
-                });
-                entry_ = HintNameTable(pe_data, section_table_.ConvertRvaToRawAddress(rva));
 
-            }
-        }
-        else
+        import_lookup_entry_.clear();
+        while(true)
         {
-            if ((MemoryToUint64(pe_data + offset) & 0x8000000000000000) == 1)
+            bool end_of_table = true;
+            for (int i = 0; i < 8; i++)
             {
-                // Import by ordinal
-                field_vector_.push_back(Field{
-                    "Ordinal Number",
-                    MemoryToUint64(pe_data + offset) & 0x000000000000ffff,
-                    2
-                });
+                if (pe_data[offset + i] != 0)
+                {
+                    end_of_table = false;
+                    break;
+                }
             }
-            else
+            if (end_of_table == true)
             {
-                // Import by name
-                DWORD rva = MemoryToUint32(pe_data + offset) & 0xffffffff;
-                field_vector_.push_back(Field{
-                    "Hint/Name Table RVA",
-                    rva,
-                    4
-                });
-                entry_ = HintNameTable(pe_data, section_table_.ConvertRvaToRawAddress(rva));
+                break;
             }
+            import_lookup_entry_.push_back(ImportLookupEntry(pe_data, offset, section_table_, version_));
+            offset += 8;
         }
-        
     }
 
-    bool ImportLookupTable::IsOrdinalFlag() const
-    {
-        return false;
-    }
-
-    bool ImportLookupTable::IsNameFlag() const
-    {
-        return false;
-    }
-    
-    Field ImportLookupTable::GetFieldByName(const std::string &name)
-    {
-        for (auto& field: field_vector_)
-        {
-            if (field.name == name)
-            {
-                return field;
-            }
-        }
-        return Field();
-    }
 }
