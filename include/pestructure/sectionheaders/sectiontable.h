@@ -21,9 +21,10 @@ namespace pe
         int GetNumberOfSections() const;
         void SetNumberOfSections(const int n_sections);
 
-        SectionHeader FindSectionByVirtualAddress(DWORD addr);
-        SectionHeader FindSectionByRawAddress(DWORD addr);
+        SectionHeader FindSectionByRva(DWORD addr, int size);
+        SectionHeader FindSectionByRawAddress(DWORD addr, int size);
 
+        DWORD ConvertRvaToRawAddress(DWORD addr);
     };
 }
 

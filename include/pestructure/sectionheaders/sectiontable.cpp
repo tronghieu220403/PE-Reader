@@ -29,13 +29,13 @@ namespace pe
         n_sections_ = n_sections;
     }
 
-    SectionHeader SectionTable::FindSectionByVirtualAddress(DWORD addr)
+    SectionHeader SectionTable::FindSectionByRva(DWORD addr, int size)
     {
         for (auto& section: section_header_)
         {
-            DWORD va = section.GetFieldByName("VirtualAddress").value;
+            DWORD rva = section.GetFieldByName("VirtualAddress").value;
             DWORD vs = section.GetFieldByName("VirtualSize").value;
-            if (va <= addr && addr <= va + vs)
+            if (rva <= addr && addr + size <= rva + vs)
             {
                 return section;
             }
@@ -43,17 +43,34 @@ namespace pe
         return SectionHeader();
     }
 
-    SectionHeader SectionTable::FindSectionByRawAddress(DWORD addr)
+    SectionHeader SectionTable::FindSectionByRawAddress(DWORD addr, int size)
     {
         for (auto& section: section_header_)
         {
             DWORD ra = section.GetFieldByName("PointerToRawData").value;
             DWORD rs = section.GetFieldByName("SizeOfRawData").value;
-            if (ra <= addr && addr <= ra + rs)
+            if (ra <= addr && addr + size <= ra + rs)
             {
                 return section;
             }
         }
         return SectionHeader();
+    }
+
+    DWORD SectionTable::ConvertRvaToRawAddress(DWORD addr)
+    {
+        for (auto& section: section_header_)
+        {
+            DWORD ra = section.GetFieldByName("PointerToRawData").value;
+            DWORD rva = section.GetFieldByName("VirtualAddress").value;
+            DWORD vs = section.GetFieldByName("VirtualSize").value;
+
+            if (rva <= addr && addr <= rva + vs)
+            {
+                return addr - rva + ra;
+            }
+        }
+
+        return -1;
     }
 }

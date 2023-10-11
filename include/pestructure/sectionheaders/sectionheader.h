@@ -8,7 +8,7 @@ namespace pe
     class SectionHeader
     {
     private:
-        std::vector<Field> section_header_;
+        std::vector<Field> field_vector_;
     public:
         SectionHeader() = default;
         SectionHeader(const char* section_header_data);

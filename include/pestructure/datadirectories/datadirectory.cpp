@@ -41,7 +41,7 @@ namespace pe
         data_.Size = size;
     }
 
-    DWORD DataDiretory::GetDataVirtualAddress() const
+    DWORD DataDiretory::GetDataRelativeVirtualAddress() const
     {
         return data_.VirtualAddress;
     }

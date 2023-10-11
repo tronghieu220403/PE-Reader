@@ -26,7 +26,7 @@ namespace pe
         DWORD GetDataSize() const;
         void SetDataSize(const DWORD size);
 
-        DWORD GetDataVirtualAddress() const;
+        DWORD GetDataRelativeVirtualAddress() const;
         void SetDataVirtualAddress(const DWORD virtual_address);
     };
 }

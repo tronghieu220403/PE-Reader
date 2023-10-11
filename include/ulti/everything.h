@@ -23,7 +23,6 @@ namespace pe
     {
         std::string name;
         std::string value;
-        WORD size;
     };
 
 
@@ -59,6 +58,16 @@ namespace pe
     {
         int res = 0;
         memcpy(&res, data, 2);
+        return res;
+    }
+
+    inline std::string MemoryToString(const char *data)
+    {
+        std::string res;
+        for (int i = 0; data[i] != 0; i++)
+        {
+            res.push_back(char(data[i]));
+        }
         return res;
     }
 

@@ -1,5 +1,5 @@
-#ifndef PEREADER_PEHEADER_IMPORTDIRECTORY_IMPORTDIRECTORY_H_
-#define PEREADER_PEHEADER_IMPORTDIRECTORY_IMPORTDIRECTORY_H_
+#ifndef PEREADER_PEHEADER_IMPORTDIRECTORY_IMPORTDIRECTORYTABLE_H_
+#define PEREADER_PEHEADER_IMPORTDIRECTORY_IMPORTDIRECTORYTABLE_H_
 
 #include "ulti/everything.h"
 #include "pestructure/importdirectory/importdirectoryentry.h"
@@ -12,15 +12,17 @@ namespace pe
     {
     private:
         std::vector<ImportDirectoryEntry> entry_;
+        WORD version_;
     public:
 
         ImportDirectoryTable() = default;
-        explicit ImportDirectoryTable(SectionTable section_table, DataDiretoryTable data_dir_table);
-        explicit ImportDirectoryTable(const char* imp_dir_table_data);
+        explicit ImportDirectoryTable(const char* pe_data, SectionTable& section_table, DataDiretoryTable& data_dir_table, WORD version_);
 
-        void SetImportDirectoryTableData(const char* imp_dir_table_data);
+        void SetVersion(WORD version);
 
-        void GetImportDirectoryEntryByDllName(const std::string& name) const;
+        void SetImportDirectoryTableData(const char* pe_data, int offset, DataDiretoryTable& data_dir_table);
+
+        ImportDirectoryEntry GetImportDirectoryEntryByDllName(const std::string& name) const;
 
     };
 }

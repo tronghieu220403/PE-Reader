@@ -8,13 +8,13 @@ namespace pe
     class ImportDirectoryEntry
     {
     private:
-        Field signature_;
+        std::vector<Field> field_vector_;
     public:
 
         ImportDirectoryEntry() = default;
-        explicit ImportDirectoryEntry(const char* imp_dir_entry_data);
+        explicit ImportDirectoryEntry(const char* pe_data, int offset);
 
-        void ImportDirectoryEntry(const char* imp_dir_entry_data);
+        void SetImportDirectoryEntry(const char* pe_data, int offset);
 
     };
 }
