@@ -10,14 +10,19 @@ namespace pe
     {
     private:
         std::vector<SectionHeader> section_header_;
+        int n_sections_;
+
     public:
         SectionTable() = default;
-        SectionTable(const char* section_headers_data);
+        SectionTable(const char* section_headers_data, int n_sections);
         
-        void SetUpSectionTable(const char *section_headers_data);
+        void SetSectionTable(const char *section_headers_data);
 
-        SectionHeader FindSectionByVirtualAddress(unsigned long long addr);
-        SectionHeader FindSectionByRawAddress(unsigned long long addr);
+        int GetNumberOfSections() const;
+        void SetNumberOfSections(const int n_sections);
+
+        SectionHeader FindSectionByVirtualAddress(DWORD addr);
+        SectionHeader FindSectionByRawAddress(DWORD addr);
 
     };
 }
