@@ -17,4 +17,20 @@ namespace pe
             FieldStr{"Name", 
             MemoryToString(pe_data + offset)};
     }
+
+    Field HintNameEntry::GetHintField() const
+    {
+        return hint_;
+    }
+
+    FieldStr HintNameEntry::GetNameField() const
+    {
+        return name_;
+    }
+
+    int HintNameEntry::GetSize() const
+    {
+        return name_.value.size() + 2 + 1;
+    }
+
 }

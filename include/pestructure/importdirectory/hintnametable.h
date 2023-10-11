@@ -2,14 +2,14 @@
 #define PEREADER_PEHEADER_IMPORTDIRECTORY_HINTNAMETABLE_H_
 
 #include "ulti/everything.h"
+#include "pestructure/importdirectory/hintnameentry.h"
 
 namespace pe
 {
     class HintNameTable
     {
     private:
-        Field hint_;
-        FieldStr name_;
+        std::vector<HintNameEntry> entry_;
     public:
 
         HintNameTable() = default;

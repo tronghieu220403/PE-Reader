@@ -9,15 +9,18 @@ namespace pe
     class HintNameEntry
     {
     private:
-        std::vector<HintNameEntry> entry_;
+        Field hint_;
+        FieldStr name_;
     public:
 
         HintNameEntry() = default;
         explicit HintNameEntry(const char* pe_data, int offset);
 
-        void SetHintNameTable(const char* pe_data, int offset);
+        void SetHintNameEntry(const char* pe_data, int offset);
 
-        
+        Field GetHintField() const;
+        FieldStr GetNameField() const;
+        int GetSize() const;
     };
 }
 
