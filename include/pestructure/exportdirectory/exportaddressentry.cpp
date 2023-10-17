@@ -3,7 +3,7 @@
 namespace pe
 {
 
-    ExportDirectoryEntry::ExportDirectoryEntry(const char *pe_data, int export_address_rva, int name_pointer_rva, int ordinal, std::shared_ptr<SectionTable> section_table_)
+    ExportDirectoryEntry::ExportDirectoryEntry(const char *pe_data, int export_address_rva, int name_pointer_rva, int biased_ordinal, std::shared_ptr<SectionTable> section_table_)
     {
 
     }
