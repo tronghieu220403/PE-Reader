@@ -10,14 +10,14 @@ namespace pe
     private:
         std::vector<Field> field_vector_;
         ImportLookupTable import_lookup_table_;
-        SectionTable section_table_;
+        std::shared_ptr<SectionTable> section_table_;
         WORD version_;
     public:
 
         ImportDirectoryEntry() = default;
-        explicit ImportDirectoryEntry(const char* pe_data, int offset, SectionTable& section_table, WORD version);
+        explicit ImportDirectoryEntry(const char* pe_data, int offset, std::shared_ptr<SectionTable> section_table, WORD version);
 
-        void SetSectionTable(SectionTable& section_table);
+        void SetSectionTable(std::shared_ptr<SectionTable> section_table);
         void SetVersion(WORD version);
 
         void SetImportDirectoryEntry(const char* pe_data, int offset);

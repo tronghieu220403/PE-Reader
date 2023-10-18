@@ -2,7 +2,7 @@
 
 namespace pe
 {
-    ImportDirectoryTable::ImportDirectoryTable(const char* pe_data, SectionTable& section_table, DataDiretoryTable& data_dir_table, WORD version)
+    ImportDirectoryTable::ImportDirectoryTable(const char* pe_data, std::shared_ptr<SectionTable> section_table, DataDiretoryTable& data_dir_table, WORD version)
     {
         if (version != 0x20B && version != 0x10B)
         {
@@ -14,7 +14,7 @@ namespace pe
         DWORD rva = import.GetDataRelativeVirtualAddress();
         DWORD sz = import.GetDataSize();
 
-        SectionHeader section_header = section_table.FindSectionByRva(rva, sz);
+        SectionHeader section_header = section_table->FindSectionByRva(rva, sz);
         if (section_header.GetFieldByName("ImageBase").value == 0)
         {
             return;
@@ -25,7 +25,7 @@ namespace pe
 
     }
 
-    void ImportDirectoryTable::SetSectionTable(const SectionTable &section_table)
+    void ImportDirectoryTable::SetSectionTable(const std::shared_ptr<SectionTable> section_table)
     {
         section_table_ = section_table;
     }

@@ -13,15 +13,15 @@ namespace pe
         std::vector<Field> field_vector_;
         HintNameTable entry_;
         WORD version_;
-        SectionTable section_table_;
+        std::shared_ptr<SectionTable> section_table_;
     public:
 
         ImportLookupEntry() = default;
         explicit ImportLookupEntry(WORD version);
-        explicit ImportLookupEntry(const char* pe_data, int offset, SectionTable& section_header, WORD version);
+        explicit ImportLookupEntry(const char* pe_data, int offset, std::shared_ptr<SectionTable> section_header, WORD version);
 
         void SetVersion(WORD version);
-        void SetSectionTable(SectionTable section_table);
+        void SetSectionTable(const std::shared_ptr<SectionTable> section_table);
 
         void SetImportLookupEntryData(const char* pe_data, int offset);
 

@@ -2,7 +2,7 @@
 
 namespace pe
 {
-    ImportDirectoryEntry::ImportDirectoryEntry(const char *pe_data, int offset, SectionTable& section_table, WORD version)
+    ImportDirectoryEntry::ImportDirectoryEntry(const char *pe_data, int offset, std::shared_ptr<SectionTable> section_table, WORD version)
     {
         if (version != 0x20B && version != 0x10B)
         {
@@ -14,7 +14,7 @@ namespace pe
         SetImportDirectoryEntry(pe_data, offset);
     }
 
-    void ImportDirectoryEntry::SetSectionTable(SectionTable &section_table)
+    void ImportDirectoryEntry::SetSectionTable(std::shared_ptr<SectionTable> section_table)
     {
         section_table_ = section_table;
     }
@@ -41,7 +41,7 @@ namespace pe
             ilt_rva, 
             4}
         );
-        import_lookup_table_ = ImportLookupTable(pe_data, section_table_.ConvertRvaToRawAddress(ilt_rva), section_table_, version_);
+        import_lookup_table_ = ImportLookupTable(pe_data, section_table_->ConvertRvaToRawAddress(ilt_rva), section_table_, version_);
 
         field_vector_.push_back(
             Field{"Time/Date Stamp", 

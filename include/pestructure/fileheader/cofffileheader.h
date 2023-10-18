@@ -11,7 +11,7 @@ namespace pe
         std::vector<Field> file_header_vector_;
     public:
         CoffFileHeader() = default;
-        explicit CoffFileHeader(const char* buffer);
+        explicit CoffFileHeader(const char* file_header_data);
 
         void SetUpCoffFileHeaderVector(const char* file_header_data);
         Field GetFieldByName(const std::string& name);

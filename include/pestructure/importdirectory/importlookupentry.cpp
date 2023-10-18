@@ -16,12 +16,12 @@ namespace pe
         version_ = version;
     }
 
-    void ImportLookupEntry::SetSectionTable(SectionTable section_table)
+    void ImportLookupEntry::SetSectionTable(const std::shared_ptr<SectionTable> section_table)
     {
         section_table_ = section_table;
     }
 
-    ImportLookupEntry::ImportLookupEntry(const char *pe_data, int offset, SectionTable& section_table, WORD version)
+    ImportLookupEntry::ImportLookupEntry(const char *pe_data, int offset, std::shared_ptr<SectionTable> section_table, WORD version)
     {
         if (version != 0x20B && version != 0x10B)
         {
@@ -58,7 +58,7 @@ namespace pe
                     rva,
                     4
                 });
-                entry_ = HintNameTable(pe_data, section_table_.ConvertRvaToRawAddress(rva));
+                entry_ = HintNameTable(pe_data, section_table_->ConvertRvaToRawAddress(rva));
             }
         }
         else
@@ -81,7 +81,7 @@ namespace pe
                     rva,
                     4
                 });
-                entry_ = HintNameTable(pe_data, section_table_.ConvertRvaToRawAddress(rva));
+                entry_ = HintNameTable(pe_data, section_table_->ConvertRvaToRawAddress(rva));
             }
         }
         
