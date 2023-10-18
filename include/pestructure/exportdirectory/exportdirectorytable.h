@@ -11,18 +11,19 @@ namespace pe
     {
     private:
         std::vector<Field> field_vector_;
-        std::shared_ptr<SectionTable> section_table_;
         std::vector<Field> entry_vector_;
+
+        std::shared_ptr<SectionTable> section_table_;
     public:
 
         ExportDirectoryTable() = default;
-        explicit ExportDirectoryTable(const char* pe_data, int offset, std::shared_ptr<SectionTable> section_table);
+        explicit ExportDirectoryTable(const char* pe_data, DWORD offset, std::shared_ptr<SectionTable> section_table);
 
         void SetSectionTable(std::shared_ptr<SectionTable> section_table);
 
-        void SetExportDirectoryTableData(const char* pe_data, int offset);
+        void SetExportDirectoryTableData(const char* pe_data, DWORD offset);
 
-        void SetExportDirectoryTableEntries(const char* pe_data,int n_functions, int n_names, int address_of_functions, int address_of_names, int address_of_nameordinals);
+        void SetExportDirectoryTableEntries(const char* pe_data,DWORD n_functions, DWORD n_names, DWORD address_of_functions, DWORD address_of_names, DWORD address_of_nameordinals);
 
         Field GetFieldByName(const std::string &name);
     };
