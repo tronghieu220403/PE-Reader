@@ -11,18 +11,19 @@ namespace pe
     private:
         std::vector<Field> field_vector_;
         std::vector<FieldStr> field_str_vector_;
-        std::shared_ptr<SectionTable> section_table_;
     public:
 
         ExportDirectoryEntry() = default;
-        explicit ExportDirectoryEntry(const char* pe_data, int export_address_rva_offset, int name_pointer_rva_offset, int biased_ordinal, std::shared_ptr<SectionTable> section_table);
+        explicit ExportDirectoryEntry(const char* pe_data, 
+            DWORD export_address_rva, 
+            DWORD name_raw_offset,
+            DWORD biased_ordinal
+            );
 
-        void SetSectionTable(std::shared_ptr<SectionTable> section_table);
-
-        void SetExportDirectoryEntryData(const char* pe_data, int export_address_rva, int name_pointer_rva, int biased_ordinal);
+        void SetExportDirectoryEntryData(const char* pe_data, DWORD export_address_rva, DWORD name_raw_offset, DWORD biased_ordinal);
 
         Field GetFieldByName(const std::string &name);
-        Field GetFieldStrByName(const std::string &name);
+        FieldStr GetFieldStrByName(const std::string &name);
 
     };
 }

@@ -11,7 +11,7 @@ namespace pe
     {
     private:
         std::vector<Field> field_vector_;
-        std::vector<Field> entry_vector_;
+        std::vector<ExportDirectoryEntry> entry_vector_;
 
         std::shared_ptr<SectionTable> section_table_;
     public:

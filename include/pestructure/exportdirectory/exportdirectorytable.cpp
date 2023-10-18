@@ -68,7 +68,7 @@ namespace pe
         
         n_names = MemoryToUint32(pe_data + offset);
         field_vector_.push_back(Field{
-            "Number of Name PoDWORDers",
+            "Number of Name Pointer",
             n_names,
             4
         });
@@ -84,7 +84,7 @@ namespace pe
 
         address_of_names = MemoryToUint32(pe_data + offset);
         field_vector_.push_back(Field{
-            "Name PoDWORDer RVA",
+            "Name Pointer RVA",
             address_of_names,
             4
         });
@@ -109,18 +109,36 @@ namespace pe
         DWORD raw_address_of_functions = section_table_->ConvertRvaToRawAddress(address_of_functions);
         DWORD raw_address_of_names = section_table_->ConvertRvaToRawAddress(address_of_names);
         DWORD raw_address_of_nameordinals = section_table_->ConvertRvaToRawAddress(address_of_nameordinals);
+        DWORD ordinal_base = GetFieldByName("Ordinal Base").value;
 
         for (DWORD i = 0; i < n_functions; i++)
         {
             DWORD func_rva = MemoryToUint32(pe_data + raw_address_of_functions + i * 4);
 
+            DWORD ordinal = DWORD(-1);
             for (DWORD j = 0; j < n_names; j++)
             {
-                WORD ordinal = MemoryToUint16(pe_data + raw_address_of_nameordinals + j *2);
-                if ((DWORD)ordinal == i)
+                WORD ord = MemoryToUint16(pe_data + raw_address_of_nameordinals + j *2);
+                if ((DWORD)ord == i)
                 {
-                    
+                    ordinal = j;
+                    break;
                 }
+            }
+
+            if (ordinal != DWORD(-1))
+            {
+                ExportDirectoryEntry(pe_data, func_rva, 
+                section_table_->ConvertRvaToRawAddress(
+                    MemoryToUint32(pe_data + raw_address_of_names + ordinal * 4)
+                    ),
+                i + ordinal_base);
+            }
+            else
+            {
+                ExportDirectoryEntry(nullptr, func_rva, 
+                DWORD(-1), 
+                i + ordinal_base);
             }
         }
     }

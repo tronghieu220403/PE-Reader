@@ -3,29 +3,55 @@
 namespace pe
 {
 
-    ExportDirectoryEntry::ExportDirectoryEntry(const char *pe_data, int export_address_rva_offset, int name_pointer_rva_offset, int biased_ordinal, std::shared_ptr<SectionTable> section_table):
-        section_table_(section_table)
+    ExportDirectoryEntry::ExportDirectoryEntry(const char *pe_data, DWORD export_address_rva, DWORD name_raw_offset, DWORD biased_ordinal)
     {
-
-    }
-
-    void ExportDirectoryEntry::SetSectionTable(std::shared_ptr<SectionTable> section_table)
-    {
-        section_table_ = section_table;
+        SetExportDirectoryEntryData(pe_data, export_address_rva, name_raw_offset, biased_ordinal);
     }
     
-    void ExportDirectoryEntry::SetExportDirectoryEntryData(const char *pe_data, int export_address_rva_offset, int name_pointer_rva_offset, int biased_ordinal)
+    void ExportDirectoryEntry::SetExportDirectoryEntryData(const char *pe_data, DWORD export_address_rva, DWORD name_raw_offset, DWORD biased_ordinal)
     {
-        // Phải check xem export_address_rva là Export RVA hay Forwarder RVA, nếu là export RVA thì mới có name_pointer_rva
+        field_vector_.push_back(
+            Field{"Export Address RVA", 
+            export_address_rva, 
+            4
+        });
+        field_vector_.push_back(
+            Field{"Ordinal", 
+            biased_ordinal, 
+            4
+        });
+
+        if (pe_data != nullptr && name_raw_offset != DWORD(-1))
+        {
+            field_str_vector_.push_back(
+                FieldStr{"Export Name",
+                MemoryToString(pe_data + name_raw_offset)
+            });
+
+        }
     }
 
     Field ExportDirectoryEntry::GetFieldByName(const std::string &name)
     {
+        for (auto& ele: field_vector_)
+        {
+            if (ele.name == name)
+            {
+                return ele;
+            }
+        }
         return Field();
     }
 
-    Field ExportDirectoryEntry::GetFieldStrByName(const std::string &name)
+    FieldStr ExportDirectoryEntry::GetFieldStrByName(const std::string &name)
     {
-        return Field();
+        for (auto& ele: field_str_vector_)
+        {
+            if (ele.name == name)
+            {
+                return ele;
+            }
+        }
+        return FieldStr();
     }
 }
