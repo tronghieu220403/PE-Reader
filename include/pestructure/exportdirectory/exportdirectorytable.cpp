@@ -103,9 +103,6 @@ namespace pe
 
     void ExportDirectoryTable::SetExportDirectoryTableEntries(const char *pe_data, DWORD n_functions, DWORD n_names, DWORD address_of_functions, DWORD address_of_names, DWORD address_of_nameordinals)
     {
-        // For each function i-th (i from 0 to n_functions - 1), its address is Export_Address_Table_RVA[i]
-        // Secondly check if its ordinal i appears in Ordinal_Table_RVA
-        // If yes, i == Ordinal_Table_RVA[j], then the name of that function will be Name_PoDWORDer_RVA[j]
         DWORD raw_address_of_functions = section_table_->ConvertRvaToRawAddress(address_of_functions);
         DWORD raw_address_of_names = section_table_->ConvertRvaToRawAddress(address_of_names);
         DWORD raw_address_of_nameordinals = section_table_->ConvertRvaToRawAddress(address_of_nameordinals);
