@@ -8,15 +8,15 @@ namespace pe
         SetData(data);
     }
 
-    std::string DataDiretory::GetName() const {
-        return name_;
-    }
-
     DataDiretory::DataDiretory(const std::string& name, const DWORD virtual_address, const DWORD size)
     {
         SetName(name);
-        SetDataVirtualAddress(virtual_address);
+        SetDataRelativeVirtualAddress(virtual_address);
         SetDataSize(size);
+    }
+
+    std::string DataDiretory::GetName() const {
+        return name_;
     }
 
     void DataDiretory::SetName(const std::string& name) {
@@ -46,10 +46,19 @@ namespace pe
         return data_.VirtualAddress;
     }
 
-    void DataDiretory::SetDataVirtualAddress(const DWORD virtual_address)
+    void DataDiretory::SetDataRelativeVirtualAddress(const DWORD virtual_address)
     {
         data_.VirtualAddress = virtual_address;
     }
 
-
+    std::string DataDiretory::ToString(int pad)
+    {
+        std::string s;
+        std::string pad_str(pad * 4, ' ');
+        std::string pad_str_sub(pad * 4 + 2, ' ');
+        s.append(pad_str + GetName() + ":\n"); 
+        s.append(pad_str_sub + "RVA:  " + ToHex(GetDataRelativeVirtualAddress()) + "\n"); 
+        s.append(pad_str_sub + "Size: " + ToHex(GetDataSize()) + "\n");
+        return s;
+    }
 }

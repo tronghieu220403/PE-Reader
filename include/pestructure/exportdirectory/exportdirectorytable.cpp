@@ -106,7 +106,7 @@ namespace pe
         DWORD raw_address_of_functions = section_table_->ConvertRvaToRawAddress(address_of_functions);
         DWORD raw_address_of_names = section_table_->ConvertRvaToRawAddress(address_of_names);
         DWORD raw_address_of_nameordinals = section_table_->ConvertRvaToRawAddress(address_of_nameordinals);
-        DWORD ordinal_base = GetFieldByName("Ordinal Base").value;
+        DWORD ordinal_base = static_cast<DWORD>(GetFieldByName("Ordinal Base").value);
 
         for (DWORD i = 0; i < n_functions; i++)
         {

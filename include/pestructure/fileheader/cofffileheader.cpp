@@ -34,13 +34,6 @@ namespace pe
         offset += 4;
 
         file_header_vector_.push_back(
-            Field{"TimeDateStamp", 
-            MemoryToUint16(file_header_data + offset), 
-            4}
-        );
-        offset += 4;
-
-        file_header_vector_.push_back(
             Field{"PointerToSymbolTable", 
             MemoryToUint32(file_header_data + offset), 
             4}
@@ -81,6 +74,7 @@ namespace pe
         }
         return Field();
     }
+
     std::string CoffFileHeader::ToString(int pad)
     {
         std::string s;

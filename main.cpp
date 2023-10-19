@@ -1,5 +1,6 @@
 #include "ulti/everything.h"
 #include "pestructure/fileheader/dosheader.h"
+#include "pestructure/fileheader/ntheader.h"
 
 std::string file_path = "E:\\Download\\user32.dll";
 
@@ -14,4 +15,6 @@ int main()
     pe::DosHeader dos_header(v.data());
     std::cout << dos_header.ToString(0);
 
+    pe::NtHeader nt_header(v.data() + dos_header.GetLfanew());
+    std::cout<<"\n\n"<<nt_header.ToString(0);
 }

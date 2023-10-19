@@ -294,7 +294,22 @@ namespace pe
     {
         std::string s;
         std::string pad_str(pad * 4, ' ');
+        std::string pad_str_sub(pad * 4 + 2, ' ');
+        s.append(pad_str + "Optional Header\n"); 
+        for (auto& ele: standard_field_vector_)
+        {
+            s.append(pad_str_sub + ele.name + ": " + ToHex(ele.value) + "\n"); 
+        }
+        s.append("\n");
 
+        for (auto& ele: windows_specific_field_vector_)
+        {
+            s.append(pad_str_sub + ele.name + ": " + ToHex(ele.value) + "\n"); 
+        }
+        s.append("\n");
+
+        pad++;
+        s.append(data_dir_table_.ToString(pad));
         return s;
     }
 }

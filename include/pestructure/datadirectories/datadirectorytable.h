@@ -9,7 +9,7 @@ namespace pe
     class DataDiretoryTable
     {
     private:    
-        std::vector<DataDiretory> entry_;
+        std::vector<DataDiretory> entry_vector_;
     public:
         DataDiretoryTable() = default;
 
@@ -18,6 +18,8 @@ namespace pe
         void SetDataDiretoryTable(const char* data_directories_data);
 
         DataDiretory GetDataDirectoryByName(const std::string& name);
+
+        std::string ToString(int pad);
     };
 }
 

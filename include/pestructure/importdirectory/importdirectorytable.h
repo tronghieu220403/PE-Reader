@@ -12,7 +12,7 @@ namespace pe
     {
     private:
         std::vector<ImportDirectoryEntry> entry_;
-        WORD version_;
+        WORD version_ = 0;
         std::shared_ptr<SectionTable> section_table_;
     public:
 

@@ -27,7 +27,9 @@ namespace pe
         void SetDataSize(const DWORD size);
 
         DWORD GetDataRelativeVirtualAddress() const;
-        void SetDataVirtualAddress(const DWORD virtual_address);
+        void SetDataRelativeVirtualAddress(const DWORD virtual_address);
+
+        std::string ToString(int pad);
     };
 }
 

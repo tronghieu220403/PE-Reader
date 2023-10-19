@@ -19,7 +19,7 @@ namespace pe
         {
             return;
         }
-        DWORD raw_offset = rva - section_header.GetFieldByName("VirtualAddress").value + section_header.GetFieldByName("PointerToRawData").value;
+        DWORD raw_offset = rva - static_cast<DWORD>(section_header.GetFieldByName("VirtualAddress").value) + static_cast<DWORD>(section_header.GetFieldByName("PointerToRawData").value);
 
         SetImportDirectoryTableData(pe_data, raw_offset);
 

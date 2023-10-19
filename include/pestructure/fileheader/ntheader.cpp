@@ -46,7 +46,6 @@ namespace pe
         pad++;
         s.append(file_header_->ToString(pad));
         s.append(optional_header_->ToString(pad));
-
         return s;
     }
 }
