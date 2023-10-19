@@ -16,6 +16,7 @@ namespace pe
         void SetUpCoffFileHeaderVector(const char* file_header_data);
         Field GetFieldByName(const std::string& name);
 
+        std::string ToString(int pad);
     };
 
 }

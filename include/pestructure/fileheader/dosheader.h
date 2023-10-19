@@ -20,6 +20,8 @@ namespace pe
         DWORD GetLfanew() const;
 
         bool IsValidExe() const;
+
+        std::string ToString(int pad);        
     };
 
 }

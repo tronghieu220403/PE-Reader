@@ -26,6 +26,7 @@ namespace pe
         std::shared_ptr<OptionalHeader> GetOptionalHeader() const;
         void SetOptionalHeader(const std::shared_ptr<OptionalHeader> optional_header);
 
+        std::string ToString(int pad);
     };
 }
 

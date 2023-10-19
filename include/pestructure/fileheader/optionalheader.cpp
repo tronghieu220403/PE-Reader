@@ -289,4 +289,12 @@ namespace pe
     {
         return data_dir_table_.GetDataDirectoryByName(name);
     }
+
+    std::string OptionalHeader::ToString(int pad)
+    {
+        std::string s;
+        std::string pad_str(pad * 4, ' ');
+
+        return s;
+    }
 }

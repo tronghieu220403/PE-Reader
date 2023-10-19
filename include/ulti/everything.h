@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <format>
+#include <filesystem>
 
 namespace pe
 {
@@ -89,6 +91,11 @@ namespace pe
             res.push_back(WCHAR(data[i]));
         }
         return res;
+    }
+
+    inline std::string ToHex(unsigned long long value)
+    {
+        return "0x" + std::format("{:x}", value);
     }
 }
 

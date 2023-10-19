@@ -37,4 +37,16 @@ namespace pe
     {
         optional_header_ = optional_header;
     }
+
+    std::string NtHeader::ToString(int pad)
+    {
+        std::string s;
+        std::string pad_str(pad * 4, ' ');
+        s.append(pad_str + "signature: " + ToHex(signature_.value) + "\n");
+        pad++;
+        s.append(file_header_->ToString(pad));
+        s.append(optional_header_->ToString(pad));
+
+        return s;
+    }
 }

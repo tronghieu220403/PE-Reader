@@ -81,4 +81,15 @@ namespace pe
         }
         return Field();
     }
+    std::string CoffFileHeader::ToString(int pad)
+    {
+        std::string s;
+        std::string pad_str(pad * 4, ' ');
+        for (auto& ele: file_header_vector_)
+        {
+            s.append(pad_str + ele.name + ": " + ToHex(ele.value) + "\n"); 
+        }
+        s.append("\n");
+        return s;
+    }
 }

@@ -35,6 +35,8 @@ namespace pe
 
         DataDiretory GetDataDirectoryByName(const std::string& name);
 
+        std::string ToString(int pad);
+
     protected:
 
         /*

@@ -15,17 +15,28 @@ namespace pe
             return;
         }
         DWORD name_offset = MemoryToInt32(pe_data + offset);
+
+        field_vector_.push_back(
+            Field{"Name Offset", name_offset, 4}
+        );
+
         name_ = ResourceDirectoryString((const WCHAR*)pe_data, raw_base_offset_ + name_offset);
 
         DWORD second_offset = MemoryToInt32(pe_data + offset + 4);
 
         if ((second_offset & 0x80000000) == 0) // Data Entry Offset
         {
-            data_ = ResourceDataEntry(pe_data, raw_base_offset_ + second_offset);
+            field_vector_.push_back(
+                Field{"Data Entry Offset", second_offset, 4}
+            );
+            data_ = new ResourceDataEntry(pe_data, raw_base_offset_ + second_offset);
         }
         else // Subdirectory Offset
         {
-            table_ = ResourceDirectoryTable(pe_data, raw_base_offset_ + second_offset - 0x80000000, raw_base_offset_);
+            field_vector_.push_back(
+                Field{"Subdirectory Offset", second_offset, 4}
+            );
+            table_ = new ResourceDirectoryTable(pe_data, raw_base_offset_ + second_offset - 0x80000000, raw_base_offset_);
         }
     }
 
@@ -40,4 +51,26 @@ namespace pe
         }
         return Field();
     }
+
+    void ResourceDirectoryNameEntry::Clean()
+    {
+        field_vector_.clear();
+        if (table_ != nullptr)
+        {
+            delete table_;
+            table_ = nullptr;
+        }
+
+        if (data_ != nullptr)
+        {
+            delete data_;
+            data_ = nullptr;
+        }
+    }
+
+    ResourceDirectoryNameEntry::~ResourceDirectoryNameEntry()
+    {
+        Clean();
+    }
+
 }

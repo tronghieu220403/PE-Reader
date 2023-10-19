@@ -8,6 +8,8 @@
 
 namespace pe
 {
+    class ResourceDirectoryTable;
+
     class ResourceDirectoryNameEntry
     {
     private:
@@ -15,8 +17,8 @@ namespace pe
         ResourceDirectoryString name_;
         DWORD raw_base_offset_ = DWORD(-1);
 
-        ResourceDirectoryTable table_;
-        ResourceDataEntry data_;
+        ResourceDirectoryTable* table_ = nullptr;
+        ResourceDataEntry* data_ = nullptr;
 
     public:
         ResourceDirectoryNameEntry() = default;
@@ -25,6 +27,10 @@ namespace pe
         void SetResourceDirectoryNameEntry(const char* pe_data, DWORD offset);
 
         Field GetFieldByName(const std::string& name);
+
+        void Clean();
+
+        ~ResourceDirectoryNameEntry();
     };
 }
 

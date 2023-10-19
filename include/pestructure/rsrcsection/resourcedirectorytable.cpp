@@ -59,13 +59,13 @@ namespace pe
         
         for (DWORD i=0 ; i< n_name_entries; ++i)
         {
-            name_entry_vector.push_back(ResourceDirectoryNameEntry(pe_data, offset, raw_base_offset_));
+            name_entry_vector_.push_back(new ResourceDirectoryNameEntry(pe_data, offset, raw_base_offset_));
             offset += 8;
         }
 
         for (DWORD i=0 ; i< n_id_entries; ++i)
         {
-            id_entry_vector.push_back(ResourceDirectoryIdEntry(pe_data, offset, raw_base_offset_));
+            id_entry_vector_.push_back(new ResourceDirectoryIdEntry(pe_data, offset, raw_base_offset_));
             offset += 8;
         }
 
@@ -81,5 +81,27 @@ namespace pe
             }
         }
         return Field();
+    }
+
+    void ResourceDirectoryTable::Clean()
+    {
+        field_vector_.clear();
+        for (int i = 0; i < id_entry_vector_.size(); i++)
+        {
+            delete id_entry_vector_[i];
+        }
+        id_entry_vector_.clear();
+
+        for (int i = 0; i < name_entry_vector_.size(); i++)
+        {
+            delete name_entry_vector_[i];
+        }
+        name_entry_vector_.clear();
+
+    }
+
+    ResourceDirectoryTable::~ResourceDirectoryTable()
+    {
+        Clean();
     }
 }
