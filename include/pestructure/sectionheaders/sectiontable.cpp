@@ -33,8 +33,8 @@ namespace pe
     {
         for (auto& section: section_header_)
         {
-            DWORD rva = section.GetFieldByName("VirtualAddress").value;
-            DWORD vs = section.GetFieldByName("VirtualSize").value;
+            DWORD rva = static_cast<DWORD>(section.GetFieldByName("VirtualAddress").value);
+            DWORD vs = static_cast<DWORD>(section.GetFieldByName("VirtualSize").value);
             if (rva <= addr && addr + size <= rva + vs)
             {
                 return section;
@@ -47,8 +47,8 @@ namespace pe
     {
         for (auto& section: section_header_)
         {
-            DWORD ra = section.GetFieldByName("PointerToRawData").value;
-            DWORD rs = section.GetFieldByName("SizeOfRawData").value;
+            DWORD ra = static_cast<DWORD>(section.GetFieldByName("PointerToRawData").value);
+            DWORD rs = static_cast<DWORD>(section.GetFieldByName("SizeOfRawData").value);
             if (ra <= addr && addr + size <= ra + rs)
             {
                 return section;
@@ -61,9 +61,9 @@ namespace pe
     {
         for (auto& section: section_header_)
         {
-            DWORD ra = section.GetFieldByName("PointerToRawData").value;
-            DWORD rva = section.GetFieldByName("VirtualAddress").value;
-            DWORD vs = section.GetFieldByName("VirtualSize").value;
+            DWORD ra = static_cast<DWORD>(section.GetFieldByName("PointerToRawData").value);
+            DWORD rva = static_cast<DWORD>(section.GetFieldByName("VirtualAddress").value);
+            DWORD vs = static_cast<DWORD>(section.GetFieldByName("VirtualSize").value);
 
             if (rva <= addr && addr <= rva + vs)
             {

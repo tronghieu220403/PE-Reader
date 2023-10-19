@@ -19,13 +19,13 @@ namespace pe
         std::string name;
         unsigned long long value;
         WORD size;
-    };
+    } Field, * FieldPtr;
 
     typedef struct FieldStr
     {
         std::string name;
         std::string value;
-    };
+    } FieldStr, * FieldStrPtr;
 
 
     inline unsigned long long MemoryToUint64(const char *data)

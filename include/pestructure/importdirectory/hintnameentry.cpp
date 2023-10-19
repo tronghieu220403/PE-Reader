@@ -30,7 +30,7 @@ namespace pe
 
     int HintNameEntry::GetSize() const
     {
-        return name_.value.size() + 2 + 1;
+        return static_cast<int>(name_.value.size()) + 2 + 1;
     }
 
 }

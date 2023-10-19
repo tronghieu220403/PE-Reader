@@ -22,7 +22,7 @@ namespace pe
         void SetSectionTable(const std::shared_ptr<SectionTable> section_table);
         void SetVersion(WORD version);
 
-        void SetImportDirectoryTableData(const char* pe_data, int offset);
+        void SetImportDirectoryTableData(const char* pe_data, DWORD offset);
 
     };
 }

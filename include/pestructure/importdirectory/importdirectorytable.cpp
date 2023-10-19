@@ -19,7 +19,7 @@ namespace pe
         {
             return;
         }
-        int raw_offset = rva - section_header.GetFieldByName("VirtualAddress").value + section_header.GetFieldByName("PointerToRawData").value;
+        DWORD raw_offset = rva - section_header.GetFieldByName("VirtualAddress").value + section_header.GetFieldByName("PointerToRawData").value;
 
         SetImportDirectoryTableData(pe_data, raw_offset);
 
@@ -35,7 +35,7 @@ namespace pe
         version_ = version;
     }
 
-    void ImportDirectoryTable::SetImportDirectoryTableData(const char *pe_data, int offset)
+    void ImportDirectoryTable::SetImportDirectoryTableData(const char *pe_data, DWORD offset)
     {
         if (version_ != 0x20B && version_ != 0x10B)
         {
