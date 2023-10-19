@@ -14,10 +14,10 @@ namespace pe
         std::vector<ResourceDirectoryIdEntry> id_entry_vector;
         std::vector<ResourceDirectoryNameEntry> name_entry_vector;
 
-        DWORD base_offset_ = DWORD(-1);
+        DWORD raw_base_offset_ = DWORD(-1);
     public:
         ResourceDirectoryTable() = default;
-        ResourceDirectoryTable(const char* pe_data, DWORD offset, DWORD base_offset_);
+        ResourceDirectoryTable(const char* pe_data, DWORD offset, DWORD raw_base_offset_);
         
         void SetResourceDirectoryTable(const char* pe_data, DWORD offset);
 

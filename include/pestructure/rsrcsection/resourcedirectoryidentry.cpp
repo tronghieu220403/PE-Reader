@@ -2,12 +2,12 @@
 
 namespace pe
 {
-    ResourceDirectoryIdEntry::ResourceDirectoryIdEntry(const char *pe_data, DWORD offset, DWORD base_offset)
+    ResourceDirectoryIdEntry::ResourceDirectoryIdEntry(const char *pe_data, DWORD offset, DWORD raw_base_offset)
     {
 
     }
 
-    void ResourceDirectoryIdEntry::SetResourceDirectoryIdEntry(const char *pe_data, DWORD offset, DWORD base_offset)
+    void ResourceDirectoryIdEntry::SetResourceDirectoryIdEntry(const char *pe_data, DWORD offset, DWORD raw_base_offset)
     {
 
     }
