@@ -11,9 +11,9 @@ namespace pe
         std::wstring content_;
     public:
         ResourceDirectoryString() = default;
-        ResourceDirectoryString(const char* pe_data, DWORD offset);
+        ResourceDirectoryString(const WCHAR* pe_data, DWORD offset);
         
-        void SetResourceDirectoryString(const char* pe_data, DWORD offset);
+        void SetResourceDirectoryString(const WCHAR* pe_data, DWORD offset);
 
         void SetContent(const std::wstring& content);
         std::wstring GetContent() const;

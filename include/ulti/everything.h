@@ -71,6 +71,25 @@ namespace pe
         return res;
     }
 
+    inline std::wstring MemoryToWstring(const WCHAR *data)
+    {
+        std::wstring res;
+        for (int i = 0; data[i] != 0; i++)
+        {
+            res.push_back(WCHAR(data[i]));
+        }
+        return res;
+    }
+
+    inline std::wstring MemoryToWstring(const WCHAR *data, int size)
+    {
+        std::wstring res;
+        for (int i = 0; i < size; i++)
+        {
+            res.push_back(WCHAR(data[i]));
+        }
+        return res;
+    }
 }
 
 #endif

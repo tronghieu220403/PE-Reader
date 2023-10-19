@@ -2,7 +2,8 @@
 
 namespace pe
 {
-    ResourceDirectoryTable::ResourceDirectoryTable(const char *pe_data, DWORD offset)
+    ResourceDirectoryTable::ResourceDirectoryTable(const char *pe_data, DWORD offset, DWORD base_offset):
+        base_offset_(base_offset)
     {
         SetResourceDirectoryTable(pe_data, offset);
     }
@@ -58,16 +59,13 @@ namespace pe
         
         for (DWORD i=0 ; i< n_name_entries; ++i)
         {
-            // Do something
-
+            name_entry_vector.push_back(ResourceDirectoryNameEntry(pe_data, offset, base_offset_));
             offset += 8;
         }
 
         for (DWORD i=0 ; i< n_id_entries; ++i)
         {
-            
-            // Do something
-
+            id_entry_vector.push_back(ResourceDirectoryIdEntry(pe_data, offset, base_offset_));
             offset += 8;
         }
 
