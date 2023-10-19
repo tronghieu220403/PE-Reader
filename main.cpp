@@ -1,6 +1,7 @@
 #include "ulti/everything.h"
 #include "pestructure/fileheader/dosheader.h"
 #include "pestructure/fileheader/ntheader.h"
+#include "pestructure/sectionheaders/sectiontable.h"
 
 std::string file_path = "E:\\Download\\user32.dll";
 
@@ -17,4 +18,10 @@ int main()
 
     pe::NtHeader nt_header(v.data() + dos_header.GetLfanew());
     std::cout<<"\n\n"<<nt_header.ToString(0);
+
+    DWORD section_offset = nt_header.GetOptionalHeader()->GetStandardFieldByName("Magic").value == PE64 ? 0x200 : (0x200 - 128 + 92);
+
+    std::shared_ptr<pe::SectionTable> section_table = std::make_shared<pe::SectionTable>(v.data() + section_offset, nt_header.GetCoffFileHeader()->GetFieldByName("NumberOfSections").value);
+
+    
 }
