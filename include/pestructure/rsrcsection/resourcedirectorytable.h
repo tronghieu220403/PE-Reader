@@ -7,17 +7,17 @@
 
 namespace pe
 {
-    class ResourceDirectoryTalbe
+    class ResourceDirectoryTable
     {
     private:
         std::vector<Field> field_vector_;
         std::vector<ResourceDirectoryIdEntry> id_entry_vector;
         std::vector<ResourceDirectoryNameEntry> name_entry_vector;
     public:
-        ResourceDirectoryTalbe() = default;
-        ResourceDirectoryTalbe(const char* pe_data, DWORD offset);
+        ResourceDirectoryTable() = default;
+        ResourceDirectoryTable(const char* pe_data, DWORD offset);
         
-        void ResourceDirectoryTalbe(const char* pe_data, DWORD offset);
+        void SetResourceDirectoryTable(const char* pe_data, DWORD offset);
 
         Field GetFieldByName(const std::string& name);
     };

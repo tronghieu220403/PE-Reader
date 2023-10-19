@@ -98,7 +98,7 @@ namespace pe
         });
         offset += 4;
 
-
+        SetExportDirectoryTableEntries(pe_data, n_functions, n_names, address_of_functions, address_of_names, address_of_nameordinals);
     }
 
     void ExportDirectoryTable::SetExportDirectoryTableEntries(const char *pe_data, DWORD n_functions, DWORD n_names, DWORD address_of_functions, DWORD address_of_names, DWORD address_of_nameordinals)
