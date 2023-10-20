@@ -24,6 +24,8 @@ namespace pe
 
         void SetImportDirectoryTableData(const char* pe_data, DWORD offset);
 
+        std::string ToString(int pad);
+
     };
 }
 

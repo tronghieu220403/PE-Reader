@@ -108,4 +108,21 @@ namespace pe
         }
         return Field();
     }
+
+    std::string ImportLookupEntry::ToString(int pad)
+    {
+        std::string s;
+        std::string pad_str(pad * 4, ' ');
+        for (auto& field: field_vector_)
+        {
+            s.append(pad_str + field.name + ": " + ToHex(field.value) + "\n");
+            if (field.name == "Hint/Name Table RVA")
+            {
+                s.append(entry_.ToString(pad+1));
+            }
+        }
+        return s;
+
+    }
+
 }

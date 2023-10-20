@@ -23,6 +23,8 @@ namespace pe
 
         void SetImportDirectoryEntry(const char* pe_data, int offset);
 
+        std::string ToString(int pad);
+
     };
 }
 

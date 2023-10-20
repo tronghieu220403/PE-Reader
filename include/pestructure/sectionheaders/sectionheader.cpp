@@ -94,4 +94,17 @@ namespace pe
         }
         return Field();
     }
+
+    std::string SectionHeader::ToString(int pad)
+    {
+        std::string s;
+        std::string pad_str(pad * 4, ' ');
+        for (auto& ele: field_vector_)
+        {
+            s.append(pad_str + ele.name + ": " + ToHex(ele.value) + "\n"); 
+        }
+
+        return s;
+
+    }
 }

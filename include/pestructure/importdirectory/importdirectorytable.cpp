@@ -41,7 +41,7 @@ namespace pe
         {
             return;
         }
-        entry_.clear();
+        entry_vector_.clear();
         while(true)
         {
             bool end_of_table = true;
@@ -57,9 +57,22 @@ namespace pe
             {
                 break;
             }
-            entry_.push_back(ImportDirectoryEntry(pe_data, offset, section_table_, version_));
+            entry_vector_.push_back(ImportDirectoryEntry(pe_data, offset, section_table_, version_));
             offset += 20;
         }
     }
     
+    std::string ImportDirectoryTable::ToString(int pad)
+    {
+        std::string s;
+        std::string pad_str(pad * 4, ' ');
+        s.append(pad_str + "Import Directory Table:\n\n");
+        for (auto& entry: entry_vector_)
+        {
+            s.append(entry.ToString(pad+1)+"\n");
+        }
+        return s;
+
+    }
+
 }

@@ -67,4 +67,18 @@ namespace pe
             4}
         );
     }
+
+    std::string ImportDirectoryEntry::ToString(int pad)
+    {
+        std::string s;
+        std::string pad_str(pad * 4, ' ');
+        for (auto& field: field_vector_)
+        {
+            s.append(pad_str + field.name + ": " + ToHex(field.value) + "\n");
+        }
+        s.append("\n");
+        s.append(import_lookup_table_.ToString(pad+1));
+        return s;
+    }
+
 }

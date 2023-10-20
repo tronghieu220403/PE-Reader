@@ -33,4 +33,13 @@ namespace pe
         return static_cast<int>(name_.value.size()) + 2 + 1;
     }
 
+    std::string HintNameEntry::ToString(int pad)
+    {
+        std::string s;
+        std::string pad_str(pad * 4, ' ');
+        s.append(pad_str + "Hint: " + ToHex(GetHintField()) + "\n");
+        s.append(pad_str + "Name: " + FieldStr.value + "\n");
+        return s;
+    }
+
 }

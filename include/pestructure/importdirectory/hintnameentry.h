@@ -21,6 +21,9 @@ namespace pe
         Field GetHintField() const;
         FieldStr GetNameField() const;
         int GetSize() const;
+
+        std::string ToString(int pad);
+        
     };
 }
 

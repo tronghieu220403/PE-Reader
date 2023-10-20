@@ -9,7 +9,7 @@ namespace pe
     class HintNameTable
     {
     private:
-        std::vector<HintNameEntry> entry_;
+        std::vector<HintNameEntry> entry_vector_;
     public:
 
         HintNameTable() = default;
@@ -17,6 +17,7 @@ namespace pe
 
         void SetHintNameTable(const char* pe_data, int offset);
 
+        std::string ToString(int pad);
         
     };
 }

@@ -41,7 +41,7 @@ namespace pe
 
         int data_size = version_ == 0x10B ? 4 : 8;
 
-        import_lookup_entry_.clear();
+        import_lookup_entry_vector_.clear();
         while(true)
         {
             bool end_of_table = true;
@@ -57,9 +57,20 @@ namespace pe
             {
                 break;
             }
-            import_lookup_entry_.push_back(ImportLookupEntry(pe_data, offset, section_table_, version_));
+            import_lookup_entry_vector_.push_back(ImportLookupEntry(pe_data, offset, section_table_, version_));
             offset += data_size;
         }
     }
 
+    std::string ImportLookupTable::ToString(int pad)
+    {
+        std::string s;
+        std::string pad_str(pad * 4, ' ');
+        s.append(pad_str + "Import Lookup Table:\n\n");
+        for (auto& entry: import_lookup_entry_vector_)
+        {
+            s.append(entry.ToString(pad+1) + "\n");
+        }
+        return s;
+    }
 }

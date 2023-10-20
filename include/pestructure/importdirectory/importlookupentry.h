@@ -30,6 +30,8 @@ namespace pe
 
         Field GetFieldByName(const std::string& name);
 
+        std::string ToString(int pad);
+        
     };
 }
 

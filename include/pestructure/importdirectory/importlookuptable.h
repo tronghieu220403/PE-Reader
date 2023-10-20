@@ -9,7 +9,7 @@ namespace pe
     class ImportLookupTable
     {
     private:
-        std::vector<ImportLookupEntry> import_lookup_entry_;
+        std::vector<ImportLookupEntry> import_lookup_entry_vector_;
         std::shared_ptr<SectionTable> section_table_;
         WORD version_;
     public:
@@ -23,6 +23,8 @@ namespace pe
 
         void SetImportLookupTableData(const char* pe_data, int offset);
 
+        std::string ToString(int pad);
+        
     };
 }
 

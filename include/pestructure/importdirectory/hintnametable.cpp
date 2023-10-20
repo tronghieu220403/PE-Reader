@@ -18,7 +18,20 @@ namespace pe
             {
                 break;
             }
-            entry_.push_back(entry);
+            entry_vector_.push_back(entry);
+            offset += entry.GetSize();
         }
+    }
+
+    std::string HintNameTable::ToString(int pad)
+    {
+        std::string s;
+        std::string pad_str(pad * 4, ' ');
+        s.append(pad_str + "Hint/Name Talbe:\n\n");
+        for (auto &entry: entry_vector_)
+        {
+            s.append(entry.ToString(pad+1) + "\n");
+        }
+        return s;
     }
 }

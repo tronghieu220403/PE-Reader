@@ -73,4 +73,20 @@ namespace pe
 
         return -1;
     }
+
+    std::string SectionTable::ToString(int pad)
+    {
+        std::string s;
+        std::string pad_str(pad * 4, ' ');
+        s.append(pad_str + "Section Headers:\n\n")
+        for (auto& ele: section_header_)
+        {
+            s.append(ele.ToString(pad+1) + "\n");
+        }
+        s.append("\n");
+
+        return s;
+
+    }
+
 }

@@ -16,6 +16,8 @@ namespace pe
         void SetUpSectionHeader(const char *section_header_data);
 
         Field GetFieldByName(const std::string& name);
+
+        std::string ToString(int pad);
     };
 }
 

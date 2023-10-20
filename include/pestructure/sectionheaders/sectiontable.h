@@ -25,6 +25,8 @@ namespace pe
         SectionHeader FindSectionByRawAddress(DWORD addr, int size);
 
         DWORD ConvertRvaToRawAddress(DWORD addr);
+
+        std::string ToString(int pad);
     };
 }
 
