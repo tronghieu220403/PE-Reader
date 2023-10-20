@@ -16,6 +16,10 @@ namespace pe
         name_ =
             FieldStr{"Name", 
             MemoryToString(pe_data + offset)};
+        if ( ((size_t)offset + name_.value.size() + 1) % 2 == 1)
+        {
+            pad_ = 2;
+        }
     }
 
     Field HintNameEntry::GetHintField() const
@@ -30,7 +34,7 @@ namespace pe
 
     int HintNameEntry::GetSize() const
     {
-        return static_cast<int>(name_.value.size()) + 2 + 1;
+        return static_cast<int>(name_.value.size()) + 2 + pad_;
     }
 
     std::string HintNameEntry::ToString(int pad)

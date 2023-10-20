@@ -9,6 +9,7 @@ namespace pe
     class ImportDirectoryEntry
     {
     private:
+        std::vector<FieldStr> field_str_vector_;
         std::vector<Field> field_vector_;
         ImportLookupTable import_lookup_table_;
         std::shared_ptr<SectionTable> section_table_;

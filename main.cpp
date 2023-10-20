@@ -11,7 +11,7 @@ std::string file_path = "E:\\Download\\user32.dll";
 
 int main()
 {
-    freopen("E:\\Code\\Github\\PE-Reader\\main.cpptest.txt", "w", stdout);
+    freopen("E:\\Code\\Github\\PE-Reader\\main.txt", "w", stdout);
     std::filesystem::path p{file_path};
     unsigned long long size =  std::filesystem::file_size(p);
     std::ifstream inp(file_path, std::ios_base::binary);

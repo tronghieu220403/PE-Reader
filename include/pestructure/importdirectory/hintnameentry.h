@@ -11,6 +11,7 @@ namespace pe
     private:
         Field hint_;
         FieldStr name_;
+        int pad_ = 1;
     public:
 
         HintNameEntry() = default;

@@ -55,10 +55,16 @@ namespace pe
             4}
         );
 
+        DWORD name_rva = MemoryToUint32(pe_data + (offset += 4));
         field_vector_.push_back(
             Field{"Name RVA", 
-            MemoryToUint32(pe_data + (offset += 4)), 
+            name_rva, 
             4}
+        );
+
+        field_str_vector_.push_back(
+            FieldStr{"Dll Name", 
+            MemoryToString(pe_data + section_table_->ConvertRvaToRawAddress(name_rva))}
         );
 
         field_vector_.push_back(
@@ -72,10 +78,16 @@ namespace pe
     {
         std::string s;
         std::string pad_str(pad * 4, ' ');
+
+        for (auto& field: field_str_vector_)
+        {
+            s.append(pad_str + field.name + ": " + field.value + "\n");
+        }        
         for (auto& field: field_vector_)
         {
             s.append(pad_str + field.name + ": " + ToHex(field.value) + "\n");
         }
+
         s.append("\n");
         s.append(import_lookup_table_.ToString(pad+1));
         return s;
