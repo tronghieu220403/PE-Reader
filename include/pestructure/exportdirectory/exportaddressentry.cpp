@@ -27,7 +27,6 @@ namespace pe
                 FieldStr{"Export Name",
                 MemoryToString(pe_data + name_raw_offset)
             });
-
         }
     }
 
@@ -54,4 +53,21 @@ namespace pe
         }
         return FieldStr();
     }
+
+    std::string ExportDirectoryEntry::ToString(int pad)
+    {
+        std::string s;
+        std::string pad_str(pad * 4, ' ');
+        s.append(pad_str + "Export Directory Entry:\n\n");
+        for (auto& field: field_vector_)
+        {
+            s.append(pad_str + field.name + ": " + ToHex(field.value) + "\n");
+        }
+        for (auto& field: field_str_vector_)
+        {
+            s.append(pad_str + field.name + ": " + field.value + "\n");
+        }
+        return s;
+    }
+
 }

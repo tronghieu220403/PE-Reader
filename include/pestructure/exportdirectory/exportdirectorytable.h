@@ -26,6 +26,9 @@ namespace pe
         void SetExportDirectoryTableEntries(const char* pe_data,DWORD n_functions, DWORD n_names, DWORD address_of_functions, DWORD address_of_names, DWORD address_of_nameordinals);
 
         Field GetFieldByName(const std::string &name);
+
+        std::string ToString(int pad);
+        
     };
 }
 

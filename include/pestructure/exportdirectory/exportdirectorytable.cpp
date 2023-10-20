@@ -125,17 +125,20 @@ namespace pe
 
             if (ordinal != DWORD(-1))
             {
-                ExportDirectoryEntry(pe_data, func_rva, 
-                section_table_->ConvertRvaToRawAddress(
-                    MemoryToUint32(pe_data + raw_address_of_names + ordinal * 4)
+                entry_vector_.push_back(
+                    ExportDirectoryEntry(pe_data, func_rva, 
+                        section_table_->ConvertRvaToRawAddress(
+                        MemoryToUint32(pe_data + raw_address_of_names + ordinal * 4)
                     ),
-                i + ordinal_base);
+                i + ordinal_base));
             }
             else
             {
-                ExportDirectoryEntry(nullptr, func_rva, 
-                DWORD(-1), 
-                i + ordinal_base);
+                entry_vector_.push_back(
+                    ExportDirectoryEntry(nullptr, func_rva, 
+                    DWORD(-1), 
+                    i + ordinal_base)
+                );
             }
         }
     }
@@ -150,5 +153,23 @@ namespace pe
             }
         }
         return Field();
+    }
+
+    Field ExportDirectoryTable::ToString(int pad)
+    {
+        std::string s;
+        std::string pad_str(pad * 4, ' ');
+        s.append(pad_str + "Export Directory Table:\n\n");
+        for (auto& field: field_vector_)
+        {
+            s.append(pad_str + field.name + ": " + ToHex(field.value) + "\n");
+        }
+        s.append(pad_str + "Export Directory Entries:\n\n");
+        for (auto& entry: entry_vector_)
+        {
+            s.append(entry.ToString(pad+1));
+        }
+        s.append("\n");
+        return s;
     }
 }
