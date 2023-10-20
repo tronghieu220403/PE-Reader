@@ -118,7 +118,7 @@ namespace pe
             s.append(pad_str + field.name + ": " + ToHex(field.value) + "\n");
             if (field.name == "Hint/Name Table RVA")
             {
-                s.append(entry_.ToString(pad+1));
+                s.append("\n" + entry_.ToString(pad+1));
             }
         }
         return s;

@@ -9,10 +9,10 @@ namespace pe
 
     void HintNameEntry::SetHintNameEntry(const char *pe_data, int offset)
     {
-        offset -= 2;
         hint_ = Field{"Hint", 
-            MemoryToUint32(pe_data + (offset += 2)), 
+            MemoryToUint16(pe_data + offset), 
             2};
+        offset += 2;
         name_ =
             FieldStr{"Name", 
             MemoryToString(pe_data + offset)};

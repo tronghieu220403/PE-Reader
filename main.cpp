@@ -1,3 +1,6 @@
+#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_DEPRECATE
+
 #include "ulti/everything.h"
 #include "pestructure/fileheader/dosheader.h"
 #include "pestructure/fileheader/ntheader.h"
@@ -8,6 +11,7 @@ std::string file_path = "E:\\Download\\user32.dll";
 
 int main()
 {
+    freopen("E:\\Code\\Github\\PE-Reader\\main.cpptest.txt", "w", stdout);
     std::filesystem::path p{file_path};
     unsigned long long size =  std::filesystem::file_size(p);
     std::ifstream inp(file_path, std::ios_base::binary);
