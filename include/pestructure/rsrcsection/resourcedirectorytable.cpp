@@ -125,22 +125,23 @@ namespace pe
     {
         std::string s;
         std::string pad_str(pad * 4, ' ');
+        std::string sub_pad_str(pad * 4 + 2, ' ');
         s.append(pad_str + "Resource Directory Table:\n\n");
         for (auto& field: field_vector_)
         {
-            s.append(pad_str + field.name + ": " + ToHex(field.value) + "\n");
+            s.append(sub_pad_str + field.name + ": " + ToHex(field.value) + "\n");
         }
         s.append("\n");
         for (int i = 0; i < id_entry_vector_.size(); i++)
         {
-            s.append(pad_str + "Resource Directory ID Entry number " + std::to_string(i+1) + ":\n");
+            s.append(sub_pad_str + "Resource Directory ID Entry number " + std::to_string(i+1) + ":\n");
             s.append(id_entry_vector_[i]->ToString(pad+1));
         }
         id_entry_vector_.clear();
 
         for (int i = 0; i < name_entry_vector_.size(); i++)
         {
-            s.append(pad_str + "Resource Directory Name Entry number " + std::to_string(i+1) + ":\n");
+            s.append(sub_pad_str + "Resource Directory Name Entry number " + std::to_string(i+1) + ":\n");
             s.append(id_entry_vector_[i]->ToString(pad+1));
         }
 

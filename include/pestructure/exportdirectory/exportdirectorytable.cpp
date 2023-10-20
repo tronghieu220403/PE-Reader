@@ -195,7 +195,7 @@ namespace pe
         s.append(pad_str + "Export Directory Entries:\n\n");
         for (auto& entry: entry_vector_)
         {
-            s.append(entry.ToString(pad+1));
+            s.append(entry.ToString(pad+1) + "\n");
         }
         s.append("\n");
         return s;

@@ -58,14 +58,15 @@ namespace pe
     {
         std::string s;
         std::string pad_str(pad * 4, ' ');
-        s.append(pad_str + "Export Directory Entry:\n\n");
+        std::string sub_pad_str(pad * 4 + 2, ' ');
+        s.append(pad_str + "Export Directory Entry:\n");
         for (auto& field: field_vector_)
         {
-            s.append(pad_str + field.name + ": " + ToHex(field.value) + "\n");
+            s.append(sub_pad_str + field.name + ": " + ToHex(field.value) + "\n");
         }
         for (auto& field: field_str_vector_)
         {
-            s.append(pad_str + field.name + ": " + field.value + "\n");
+            s.append(sub_pad_str + field.name + ": " + field.value + "\n");
         }
         return s;
     }

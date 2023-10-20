@@ -56,10 +56,11 @@ namespace pe
     {
         std::string s;
         std::string pad_str(pad * 4, ' ');
+        std::string sub_pad_str(pad * 4, ' ');
         s.append(pad_str + "Resource Data Entry:\n\n");
         for (auto& field: field_vector_)
         {
-            s.append(pad_str + field.name + ": " + ToHex(field.value) + "\n");
+            s.append(sub_pad_str + field.name + ": " + ToHex(field.value) + "\n");
         }
         s.append("\n");
         return s;
