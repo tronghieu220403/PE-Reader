@@ -16,6 +16,9 @@ namespace pe
         void SetResourceDataEntry(const char* pe_data, DWORD offset);
 
         Field GetFieldByName(const std::string& name);
+
+        std::string ToString(int pad);
+        
     };
 }
 

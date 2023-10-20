@@ -4,6 +4,7 @@
 #include "ulti/everything.h"
 #include "pestructure/sectionheaders/sectiontable.h"
 #include "pestructure/exportdirectory/exportaddressentry.h"
+#include "pestructure/fileheader/optionalheader.h"
 
 namespace pe
 {
@@ -11,13 +12,15 @@ namespace pe
     {
     private:
         std::vector<Field> field_vector_;
+        std::vector<FieldStr> field_str_vector_;
+
         std::vector<ExportDirectoryEntry> entry_vector_;
 
         std::shared_ptr<SectionTable> section_table_;
     public:
 
         ExportDirectoryTable() = default;
-        explicit ExportDirectoryTable(const char* pe_data, DWORD offset, std::shared_ptr<SectionTable> section_table);
+        explicit ExportDirectoryTable(const char* pe_data, std::shared_ptr<SectionTable> section_table, std::shared_ptr<DataDiretoryTable> data_dir_table);
 
         void SetSectionTable(std::shared_ptr<SectionTable> section_table);
 

@@ -29,6 +29,8 @@ namespace pe
         void Clean();
 
         ~ResourceDirectoryIdEntry();
+
+        std::string ToString(int pad);
     };
 }
 

@@ -6,6 +6,8 @@
 #include "pestructure/fileheader/ntheader.h"
 #include "pestructure/sectionheaders/sectiontable.h"
 #include "pestructure/importdirectory/importdirectorytable.h"
+#include "pestructure/exportdirectory/exportdirectorytable.h"
+#include "pestructure/rsrcsection/resourcedirectorytable.h"
 
 std::string file_path = "E:\\Download\\user32.dll";
 
@@ -30,10 +32,17 @@ int main()
 
     std::shared_ptr<pe::SectionTable> section_table = std::make_shared<pe::SectionTable>(v.data() + section_offset, nt_header.GetCoffFileHeader()->GetFieldByName("NumberOfSections").value);
 
-    std::cout << "\n\n" << section_table->ToString(0);
+    //std::cout << "\n\n" << section_table->ToString(0);
 
     pe::ImportDirectoryTable import_table(v.data(), section_table, nt_header.GetOptionalHeader()->GetDataDirectoryTable(), version);
 
-    std::cout << "\n\n" << import_table.ToString(0);
+    //std::cout << "\n\n" << import_table.ToString(0);
 
+    pe::ExportDirectoryTable export_table(v.data(), section_table, nt_header.GetOptionalHeader()->GetDataDirectoryTable());
+
+    //std::cout << "\n\n" << export_table.ToString(0);
+
+    pe::ResourceDirectoryTable rsrc_table(v.data(), section_table, nt_header.GetOptionalHeader()->GetDataDirectoryTable());
+
+    std::cout << "\n\n" << rsrc_table.ToString(0);
 }

@@ -2,6 +2,22 @@
 
 namespace pe
 {
+    ResourceDirectoryTable::ResourceDirectoryTable(const char *pe_data, std::shared_ptr<SectionTable> section_table, std::shared_ptr<DataDiretoryTable> data_dir_table)
+    {
+        DataDiretory import = data_dir_table->GetDataDirectoryByName("Resource Table");
+        DWORD rva = import.GetDataRelativeVirtualAddress();
+        DWORD sz = import.GetDataSize();
+
+        SectionHeader section_header = section_table->FindSectionByRva(rva, sz);
+        if (section_header.GetFieldByName("ImageBase").value == 0)
+        {
+            return;
+        }
+        DWORD raw_offset = rva - static_cast<DWORD>(section_header.GetFieldByName("VirtualAddress").value) + static_cast<DWORD>(section_header.GetFieldByName("PointerToRawData").value);
+        raw_base_offset_ = raw_offset;
+        SetResourceDirectoryTable(pe_data, raw_offset);
+    }
+
     ResourceDirectoryTable::ResourceDirectoryTable(const char *pe_data, DWORD offset, DWORD raw_base_offset):
         raw_base_offset_(raw_base_offset)
     {
@@ -103,5 +119,31 @@ namespace pe
     ResourceDirectoryTable::~ResourceDirectoryTable()
     {
         Clean();
+    }
+
+    std::string ResourceDirectoryTable::ToString(int pad)
+    {
+        std::string s;
+        std::string pad_str(pad * 4, ' ');
+        s.append(pad_str + "Resource Directory Table:\n\n");
+        for (auto& field: field_vector_)
+        {
+            s.append(pad_str + field.name + ": " + ToHex(field.value) + "\n");
+        }
+        s.append("\n");
+        for (int i = 0; i < id_entry_vector_.size(); i++)
+        {
+            s.append(pad_str + "Resource Directory ID Entry number " + std::to_string(i+1) + ":\n");
+            s.append(id_entry_vector_[i]->ToString(pad+1));
+        }
+        id_entry_vector_.clear();
+
+        for (int i = 0; i < name_entry_vector_.size(); i++)
+        {
+            s.append(pad_str + "Resource Directory Name Entry number " + std::to_string(i+1) + ":\n");
+            s.append(id_entry_vector_[i]->ToString(pad+1));
+        }
+
+        return s;
     }
 }

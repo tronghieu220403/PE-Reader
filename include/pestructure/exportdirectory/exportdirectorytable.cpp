@@ -2,10 +2,21 @@
 
 namespace pe
 {
-    ExportDirectoryTable::ExportDirectoryTable(const char *pe_data, DWORD offset, std::shared_ptr<SectionTable> section_table):
+    ExportDirectoryTable::ExportDirectoryTable(const char *pe_data, std::shared_ptr<SectionTable> section_table, std::shared_ptr<DataDiretoryTable> data_dir_table):
     section_table_(section_table)
     {
-        SetExportDirectoryTableData(pe_data, offset);
+        DataDiretory import = data_dir_table->GetDataDirectoryByName("Export Table");
+        DWORD rva = import.GetDataRelativeVirtualAddress();
+        DWORD sz = import.GetDataSize();
+
+        SectionHeader section_header = section_table->FindSectionByRva(rva, sz);
+        if (section_header.GetFieldByName("ImageBase").value == 0)
+        {
+            return;
+        }
+        DWORD raw_offset = rva - static_cast<DWORD>(section_header.GetFieldByName("VirtualAddress").value) + static_cast<DWORD>(section_header.GetFieldByName("PointerToRawData").value);
+
+        SetExportDirectoryTableData(pe_data, raw_offset);
     }
 
     void ExportDirectoryTable::SetSectionTable(std::shared_ptr<SectionTable> section_table)
@@ -15,12 +26,12 @@ namespace pe
 
     void ExportDirectoryTable::SetExportDirectoryTableData(const char *pe_data, DWORD offset)
     {
+        DWORD name_rva;
         DWORD n_functions;
         DWORD n_names;
         DWORD address_of_functions;
         DWORD address_of_names;
         DWORD address_of_nameordinals;
-
         field_vector_.clear();
 
         field_vector_.push_back(Field{
@@ -50,6 +61,19 @@ namespace pe
             2
         });
         offset += 2;
+
+        name_rva = MemoryToUint32(pe_data + offset);
+        field_vector_.push_back(Field{
+            "Name RVA",
+            name_rva,
+            4
+        });
+
+        field_str_vector_.push_back(
+            FieldStr{"Dll Name", MemoryToString(pe_data + section_table_->ConvertRvaToRawAddress(name_rva))}
+        );
+
+        offset += 4;
 
         field_vector_.push_back(Field{
             "Ordinal Base",
@@ -160,6 +184,10 @@ namespace pe
         std::string s;
         std::string pad_str(pad * 4, ' ');
         s.append(pad_str + "Export Directory Table:\n\n");
+        for (auto& field: field_str_vector_)
+        {
+            s.append(pad_str + field.name + ": " + field.value + "\n");
+        }
         for (auto& field: field_vector_)
         {
             s.append(pad_str + field.name + ": " + ToHex(field.value) + "\n");

@@ -4,6 +4,8 @@
 #include "ulti/everything.h"
 #include "pestructure/rsrcsection/resourcedirectoryidentry.h"
 #include "pestructure/rsrcsection/resourcedirectorynameentry.h"
+#include "pestructure/sectionheaders/sectiontable.h"
+#include "pestructure/fileheader/optionalheader.h"
 
 namespace pe
 {
@@ -22,6 +24,8 @@ namespace pe
     public:
 
         ResourceDirectoryTable() = default;
+        ResourceDirectoryTable(const char* pe_data, std::shared_ptr<SectionTable> section_table, std::shared_ptr<DataDiretoryTable> data_dir_table);
+
         ResourceDirectoryTable(const char* pe_data, DWORD offset, DWORD raw_base_offset_);
         
         void SetResourceDirectoryTable(const char* pe_data, DWORD offset);
@@ -31,6 +35,8 @@ namespace pe
         void Clean();
 
         ~ResourceDirectoryTable();
+
+        std::string ToString(int pad);
     };
 }
 

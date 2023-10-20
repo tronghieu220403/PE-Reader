@@ -73,4 +73,30 @@ namespace pe
         Clean();
     }
 
+    std::string ResourceDirectoryNameEntry::ToString(int pad)
+    {
+
+        std::string s;
+        std::string pad_str(pad * 4, ' ');
+
+        //s.append(pad_str + name_.GetContent() + "\n");
+
+        for (auto& field: field_vector_)
+        {
+            s.append(pad_str + field.name + ": " + ToHex(field.value) + "\n");
+        }
+        s.append("\n");
+
+        if (table_ != nullptr)
+        {
+            s.append(table_->ToString(pad + 1));
+        }
+
+        if (data_ != nullptr)
+        {
+            s.append(data_->ToString(pad + 1));
+        }
+
+        return s;
+    }
 }
