@@ -37,8 +37,8 @@ namespace pe
     {
         std::string s;
         std::string pad_str(pad * 4, ' ');
-        s.append(pad_str + "Hint: " + ToHex(GetHintField()) + "\n");
-        s.append(pad_str + "Name: " + FieldStr.value + "\n");
+        s.append(pad_str + "Hint: " + ToHex(GetHintField().value) + "\n");
+        s.append(pad_str + "Name: " + GetNameField().value + "\n");
         return s;
     }
 

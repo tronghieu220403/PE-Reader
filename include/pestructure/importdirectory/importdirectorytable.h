@@ -11,13 +11,13 @@ namespace pe
     class ImportDirectoryTable
     {
     private:
-        std::vector<ImportDirectoryEntry> entry_;
+        std::vector<ImportDirectoryEntry> entry_vector_;
         WORD version_ = 0;
         std::shared_ptr<SectionTable> section_table_;
     public:
 
         ImportDirectoryTable() = default;
-        explicit ImportDirectoryTable(const char* pe_data, std::shared_ptr<SectionTable> section_table, DataDiretoryTable& data_dir_table, WORD version_);
+        explicit ImportDirectoryTable(const char* pe_data, std::shared_ptr<SectionTable> section_table, std::shared_ptr<DataDiretoryTable> data_dir_table, WORD version_);
 
         void SetSectionTable(const std::shared_ptr<SectionTable> section_table);
         void SetVersion(WORD version);

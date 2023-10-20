@@ -101,7 +101,17 @@ namespace pe
         std::string pad_str(pad * 4, ' ');
         for (auto& ele: field_vector_)
         {
-            s.append(pad_str + ele.name + ": " + ToHex(ele.value) + "\n"); 
+            if (ele.name == "ImageBase")
+            {
+                unsigned long long value = ele.value;
+                char t[8];
+                memcpy(&t, &value, 8);
+                s.append(pad_str + ele.name + ": " + t + "\n"); 
+            }
+            else
+            {
+                s.append(pad_str + ele.name + ": " + ToHex(ele.value) + "\n"); 
+            }
         }
 
         return s;

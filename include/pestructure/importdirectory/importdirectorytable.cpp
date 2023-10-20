@@ -2,15 +2,16 @@
 
 namespace pe
 {
-    ImportDirectoryTable::ImportDirectoryTable(const char* pe_data, std::shared_ptr<SectionTable> section_table, DataDiretoryTable& data_dir_table, WORD version)
+    ImportDirectoryTable::ImportDirectoryTable(const char* pe_data, std::shared_ptr<SectionTable> section_table, std::shared_ptr<DataDiretoryTable> data_dir_table, WORD version)
     {
         if (version != 0x20B && version != 0x10B)
         {
             return;
         }
-        version_ = version;
+        SetVersion(version);
+        SetSectionTable(section_table);
 
-        DataDiretory import = data_dir_table.GetDataDirectoryByName("Import Table");
+        DataDiretory import = data_dir_table->GetDataDirectoryByName("Import Table");
         DWORD rva = import.GetDataRelativeVirtualAddress();
         DWORD sz = import.GetDataSize();
 

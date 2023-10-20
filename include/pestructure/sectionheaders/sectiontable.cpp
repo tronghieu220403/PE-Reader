@@ -78,7 +78,7 @@ namespace pe
     {
         std::string s;
         std::string pad_str(pad * 4, ' ');
-        s.append(pad_str + "Section Headers:\n\n")
+        s.append(pad_str + "Section Headers:\n\n");
         for (auto& ele: section_header_)
         {
             s.append(ele.ToString(pad+1) + "\n");

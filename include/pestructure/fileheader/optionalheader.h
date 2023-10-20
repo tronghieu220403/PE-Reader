@@ -12,7 +12,7 @@ namespace pe
     private:
         std::vector<Field> standard_field_vector_;
         std::vector<Field> windows_specific_field_vector_;
-        DataDiretoryTable data_dir_table_;
+        std::shared_ptr<DataDiretoryTable> data_dir_table_ = std::make_shared<DataDiretoryTable>();
     public:
         OptionalHeader() = default;
         explicit OptionalHeader(const char* option_data);
@@ -30,8 +30,8 @@ namespace pe
         // For Data directories
 
         void SetDataDiretoryTable(const char* data_directories_data);
-        void SetDataDirectoryTable(const DataDiretoryTable& data_dir_table);
-        DataDiretoryTable GetDataDirectoryTable() const;
+        void SetDataDirectoryTable(const std::shared_ptr<DataDiretoryTable> data_dir_table);
+        std::shared_ptr<DataDiretoryTable> GetDataDirectoryTable() const;
 
         DataDiretory GetDataDirectoryByName(const std::string& name);
 

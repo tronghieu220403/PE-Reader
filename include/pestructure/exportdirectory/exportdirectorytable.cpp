@@ -155,7 +155,7 @@ namespace pe
         return Field();
     }
 
-    Field ExportDirectoryTable::ToString(int pad)
+    std::string ExportDirectoryTable::ToString(int pad)
     {
         std::string s;
         std::string pad_str(pad * 4, ' ');

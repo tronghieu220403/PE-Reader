@@ -272,22 +272,22 @@ namespace pe
 
     void OptionalHeader::SetDataDiretoryTable(const char* data_directories_data)
     {
-        data_dir_table_.SetDataDiretoryTable(data_directories_data);
+        data_dir_table_->SetDataDiretoryTable(data_directories_data);
     }
 
-    DataDiretoryTable OptionalHeader::GetDataDirectoryTable() const
+    std::shared_ptr<DataDiretoryTable> OptionalHeader::GetDataDirectoryTable() const
     {
         return data_dir_table_;
     }
 
-    void OptionalHeader::SetDataDirectoryTable(const DataDiretoryTable& data_dir_table)
+    void OptionalHeader::SetDataDirectoryTable(const std::shared_ptr<DataDiretoryTable> data_dir_table)
     {
         data_dir_table_ = data_dir_table;
     }
 
     DataDiretory OptionalHeader::GetDataDirectoryByName(const std::string &name)
     {
-        return data_dir_table_.GetDataDirectoryByName(name);
+        return data_dir_table_->GetDataDirectoryByName(name);
     }
 
     std::string OptionalHeader::ToString(int pad)
@@ -309,7 +309,7 @@ namespace pe
         s.append("\n");
 
         pad++;
-        s.append(data_dir_table_.ToString(pad));
+        s.append(data_dir_table_->ToString(pad));
         return s;
     }
 }
