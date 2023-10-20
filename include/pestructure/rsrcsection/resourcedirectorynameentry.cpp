@@ -19,8 +19,11 @@ namespace pe
         field_vector_.push_back(
             Field{"Name Offset", name_offset, 4}
         );
-
-        name_ = ResourceDirectoryString((const WCHAR*)pe_data, raw_base_offset_ + name_offset);
+        if (name_offset > 0x80000000)
+        {
+            name_offset = name_offset - 0x80000000;
+        }
+        name_ = ResourceDirectoryString(pe_data, raw_base_offset_ + name_offset);
 
         DWORD second_offset = MemoryToInt32(pe_data + offset + 4);
 

@@ -53,25 +53,25 @@ namespace pe
         field_vector_.push_back(
             Field{"Minor Version", 
             MemoryToUint16(pe_data + offset), 
-            4}
+            2}
         );
         offset += 2;
 
-        n_name_entries = MemoryToUint32(pe_data + offset);
+        n_name_entries = MemoryToUint16(pe_data + offset);
         field_vector_.push_back(
             Field{"Number of Name Entries", 
             n_name_entries, 
-            4}
+            2}
         );
-        offset += 4;
+        offset += 2;
 
-        n_id_entries = MemoryToUint32(pe_data + offset);
+        n_id_entries = MemoryToUint16(pe_data + offset);
         field_vector_.push_back(
             Field{"Number of ID Entries", 
             n_id_entries,
-            4}
+            2}
         );
-        offset += 4;
+        offset += 2;
         
         for (DWORD i=0 ; i< n_name_entries; ++i)
         {
@@ -137,12 +137,11 @@ namespace pe
             s.append(sub_pad_str + "Resource Directory ID Entry number " + std::to_string(i+1) + ":\n");
             s.append(id_entry_vector_[i]->ToString(pad+1));
         }
-        id_entry_vector_.clear();
 
         for (int i = 0; i < name_entry_vector_.size(); i++)
         {
             s.append(sub_pad_str + "Resource Directory Name Entry number " + std::to_string(i+1) + ":\n");
-            s.append(id_entry_vector_[i]->ToString(pad+1));
+            s.append(name_entry_vector_[i]->ToString(pad+1));
         }
 
         return s;
