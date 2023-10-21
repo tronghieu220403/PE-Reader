@@ -18,52 +18,46 @@ Folder structure
 .
 ├── pe-reader.exe                                        
 │   │
-│   │
-├── main.cpp                                             # main code
+├── main.cpp
 │   │
 ├── inlucde
 │   │
 │   └── pestructure
 │   │   │ 
-│   │   └── fileheader                                     # dependencies for pipeline (IPC)
+│   │   └── fileheader
 │   │   │   └── client.h
 │   │   │   └── server.h
 │   │   │   └── pipe.h
 │   │   │ 
-│   │   └── datadirectories                                     # dependencies for pipeline (IPC)
+│   │   └── datadirectories
 │   │   │   └── client.h
 │   │   │   └── server.h
 │   │   │   └── pipe.h
 │   │   │ 
-│   │   └── sectionheaders                                     # dependencies for pipeline (IPC)
+│   │   └── sectionheaders
 │   │   │   └── client.h
 │   │   │   └── server.h
 │   │   │   └── pipe.h
 │   │   │ 
-│   │   └── fileheader                                     # dependencies for pipeline (IPC)
+│   │   └── importdirectory
 │   │   │   └── client.h
 │   │   │   └── server.h
 │   │   │   └── pipe.h
 │   │   │ 
-│   │   └── importdirectory                                     # dependencies for pipeline (IPC)
+│   │   └── exportdirectory
 │   │   │   └── client.h
 │   │   │   └── server.h
 │   │   │   └── pipe.h
 │   │   │ 
-│   │   └── exportdirectory                                     # dependencies for pipeline (IPC)
+│   │   └── rsrcsection
 │   │   │   └── client.h
 │   │   │   └── server.h
 │   │   │   └── pipe.h
 │   │   │ 
-│   │   └── rsrcsection                                     # dependencies for pipeline (IPC)
-│   │   │   └── client.h
-│   │   │   └── server.h
-│   │   │   └── pipe.h
-│   │   │ 
-│   │   └── peconstants                                     # dependencies for pipeline (IPC)
+│   │   └── peconstants
 │   │
-│   └── ulti                                             # dependencies for platform 
-│   │   └── everything.h                                         # everything needed (libraries, syntaxs) for the code
+│   └── ulti
+│   │   └── everything.h
 │   │
 ────────────	
 ```
