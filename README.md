@@ -64,7 +64,7 @@ Folder structure
 
 References
 ----------------
-## [MSDN - PE Format](https://learn.microsoft.com/en-us/windows/win32/debug/pe-format)
+### [MSDN - PE Format](https://learn.microsoft.com/en-us/windows/win32/debug/pe-format)
 
 Requirements
 ---
