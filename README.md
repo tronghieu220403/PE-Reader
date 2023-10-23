@@ -25,36 +25,39 @@ Folder structure
 │   └── pestructure
 │   │   │ 
 │   │   └── fileheader
-│   │   │   └── client.h
-│   │   │   └── server.h
-│   │   │   └── pipe.h
+│   │   │   └── dosheader.h
+│   │   │   └── ntheader.h
+│   │   │   └── cofffileheader.h
+│   │   │   └── optionalheader.h
 │   │   │ 
 │   │   └── datadirectories
-│   │   │   └── client.h
-│   │   │   └── server.h
-│   │   │   └── pipe.h
+│   │   │   └── datadirectorytable.h
+│   │   │   └── datadirectory.h
 │   │   │ 
 │   │   └── sectionheaders
-│   │   │   └── client.h
-│   │   │   └── server.h
-│   │   │   └── pipe.h
+│   │   │   └── sectiontable.h
+│   │   │   └── sectionheader.h
 │   │   │ 
 │   │   └── importdirectory
-│   │   │   └── client.h
-│   │   │   └── server.h
-│   │   │   └── pipe.h
+│   │   │   └── importdirectorytable.h
+│   │   │   └── importdirectoryentry.h
+│   │   │   └── importlookuptable.h
+│   │   │   └── importlookupentry.h
+│   │   │   └── hintnametable.h
+│   │   │   └── hintnameentry.h
 │   │   │ 
 │   │   └── exportdirectory
-│   │   │   └── client.h
-│   │   │   └── server.h
-│   │   │   └── pipe.h
+│   │   │   └── exportdirectorytable.h
+│   │   │   └── exportaddressentry.h
 │   │   │ 
 │   │   └── rsrcsection
-│   │   │   └── client.h
-│   │   │   └── server.h
-│   │   │   └── pipe.h
+│   │   │   └── resourcedirectorytable.h
+│   │   │   └── resourcedirectorynameentry.h
+│   │   │   └── resourcedirectoryidentry.h
+│   │   │   └── resourcedirectorynameentry.h
+│   │   │   └── resourcedirectorystring.h
 │   │   │ 
-│   │   └── peconstants
+│   │   └── peconstants.h
 │   │
 │   └── ulti
 │   │   └── everything.h
