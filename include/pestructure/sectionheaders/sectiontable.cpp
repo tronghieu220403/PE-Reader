@@ -15,7 +15,7 @@ namespace pe
         for (int i = 0; i < n_sections_ ; i++)
         {
             section_header_.push_back(SectionHeader(section_headers_data));
-            section_headers_data+=40;
+            section_headers_data += 40;
         }
     }
 

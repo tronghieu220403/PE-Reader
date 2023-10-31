@@ -29,7 +29,7 @@ int main()
 
     WORD version = nt_header.GetOptionalHeader()->GetStandardFieldByName("Magic").value;
 
-    DWORD section_offset = version == PE64 ? 0x200 : (0x200 - 128 + 92);
+    DWORD section_offset = version == PE64 ? (dos_header.GetLfanew() + sizeof(IMAGE_NT_HEADERS64)) : (dos_header.GetLfanew() + sizeof(IMAGE_NT_HEADERS32));
 
     std::shared_ptr<pe::SectionTable> section_table = std::make_shared<pe::SectionTable>(v.data() + section_offset, nt_header.GetCoffFileHeader()->GetFieldByName("NumberOfSections").value);
 
