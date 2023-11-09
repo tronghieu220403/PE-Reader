@@ -58,7 +58,7 @@ namespace pe
                     rva,
                     4
                 });
-                entry_ = HintNameTable(pe_data, section_table_->ConvertRvaToRawAddress(rva));
+                entry_ = HintNameEntry(pe_data, section_table_->ConvertRvaToRawAddress(rva));
             }
         }
         else
@@ -81,7 +81,7 @@ namespace pe
                     rva,
                     4
                 });
-                entry_ = HintNameTable(pe_data, section_table_->ConvertRvaToRawAddress(rva));
+                entry_ = HintNameEntry(pe_data, section_table_->ConvertRvaToRawAddress(rva));
             }
         }
         

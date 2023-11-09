@@ -2,7 +2,7 @@
 #define PEREADER_PEHEADER_IMPORTDIRECTORY_IMPORTLOOKUPENTRY_H_
 
 #include "ulti/everything.h"
-#include "pestructure/importdirectory/hintnametable.h"
+#include "pestructure/importdirectory/hintnameentry.h"
 #include "pestructure/sectionheaders/sectiontable.h"
 
 namespace pe
@@ -11,7 +11,7 @@ namespace pe
     {
     private:
         std::vector<Field> field_vector_;
-        HintNameTable entry_;
+        HintNameEntry entry_;
         WORD version_;
         std::shared_ptr<SectionTable> section_table_;
     public:
