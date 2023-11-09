@@ -43,7 +43,6 @@ Folder structure
 │   │   │   └── importdirectoryentry.h
 │   │   │   └── importlookuptable.h
 │   │   │   └── importlookupentry.h
-│   │   │   └── hintnametable.h
 │   │   │   └── hintnameentry.h
 │   │   │ 
 │   │   └── exportdirectory
