@@ -16,7 +16,6 @@ Folder structure
 ----------------
 ```
 .
-├── pe-reader.exe                                        
 │   │
 ├── main.cpp
 │   │
