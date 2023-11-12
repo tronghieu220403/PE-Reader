@@ -16,7 +16,7 @@ namespace pe
 
         std::vector<ExportDirectoryEntry> entry_vector_;
 
-        std::shared_ptr<SectionTable> section_table_;
+        std::shared_ptr<SectionTable> section_table_ = std::make_shared<SectionTable>();
     public:
 
         ExportDirectoryTable() = default;

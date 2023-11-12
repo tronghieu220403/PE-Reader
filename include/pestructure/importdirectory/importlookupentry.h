@@ -13,7 +13,7 @@ namespace pe
         std::vector<Field> field_vector_;
         HintNameEntry entry_;
         WORD version_;
-        std::shared_ptr<SectionTable> section_table_;
+        std::shared_ptr<SectionTable> section_table_ = std::make_shared<SectionTable>();
     public:
 
         ImportLookupEntry() = default;

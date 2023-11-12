@@ -10,7 +10,7 @@ namespace pe
     {
     private:
         std::vector<ImportLookupEntry> import_lookup_entry_vector_;
-        std::shared_ptr<SectionTable> section_table_;
+        std::shared_ptr<SectionTable> section_table_ = std::make_shared<SectionTable>();
         WORD version_;
     public:
 

@@ -13,7 +13,7 @@ namespace pe
     private:
         std::vector<ImportDirectoryEntry> entry_vector_;
         WORD version_ = 0;
-        std::shared_ptr<SectionTable> section_table_;
+        std::shared_ptr<SectionTable> section_table_ = std::make_shared<SectionTable>();
     public:
 
         ImportDirectoryTable() = default;

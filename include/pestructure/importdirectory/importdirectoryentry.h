@@ -12,7 +12,7 @@ namespace pe
         std::vector<FieldStr> field_str_vector_;
         std::vector<Field> field_vector_;
         ImportLookupTable import_lookup_table_;
-        std::shared_ptr<SectionTable> section_table_;
+        std::shared_ptr<SectionTable> section_table_ = std::make_shared<SectionTable>();
         WORD version_;
     public:
 
