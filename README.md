@@ -70,7 +70,7 @@ References
 Requirements
 ---
 * C++ 20
-* Supported Operating Systems (64-bit)
+* Supported Operating Systems
   * Windows
 
 Coding style
